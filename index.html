@@ -1836,9 +1836,10 @@ html, body {
   display: flex; flex-direction: column;
 }
 .s14-plan-row.best {
-  border-color: var(--pink); box-shadow: 0 0 0 3px var(--pink-light);
+  border-color: var(--pink);
   margin-top: 14px;
 }
+.s14-plan-row { margin-top: 14px; }
 .s14-plan-best-badge {
   position: absolute; top: -11px; left: 16px;
   background: linear-gradient(135deg, var(--yellow-dark), var(--pink));
@@ -1856,10 +1857,13 @@ html, body {
 }
 .s14-plan-price span { font-size: 13px; font-weight: 500; color: var(--muted); }
 .s14-plan-save {
-  font-size: 11px; font-weight: 700; color: #16A34A;
-  background: #DCFCE7; padding: 2px 8px; border-radius: 100px;
-  display: inline-block; margin-bottom: 12px;
+  position: absolute; top: -11px; right: 16px;
+  font-size: 10px; font-weight: 700; color: #15803D;
+  background: #DCFCE7; border-radius: 100px;
+  padding: 3px 10px; white-space: nowrap;
+  display: none;
 }
+.s14-plan-save.visible { display: block; }
 .s14-plan-btn {
   width: 100%; padding: 11px;
   border: none; border-radius: 10px;
@@ -1884,7 +1888,7 @@ html, body {
 }
 
 
-.s14-plan-badges { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; margin-top: 4px; }
+.s14-plan-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 10px; margin-top: 4px; }
 .s14-badge-green {
   font-size: 10px; font-weight: 700; color: #15803D;
   background: #DCFCE7; border-radius: 100px; padding: 2px 8px;
@@ -1898,12 +1902,30 @@ html, body {
   font-size: 10px; font-weight: 700; color: #92400E;
   background: #FEF3C7; border-radius: 100px; padding: 2px 8px;
 }
-.s14-plan-row.recommended { border-color: #16A34A; box-shadow: 0 0 0 3px #DCFCE7; }
+.s14-plan-row.recommended { border-color: var(--border); }
 .s14-recommended-badge {
-  position: absolute; top: -11px; right: 16px;
-  background: #16A34A; color: #fff;
+  display: inline-flex; align-items: center;
+  background: var(--yellow); color: #7A5A00;
   border-radius: 100px; font-size: 10px; font-weight: 700;
-  padding: 3px 10px; white-space: nowrap;
+  padding: 2px 8px; white-space: nowrap;
+  width: auto; max-width: fit-content;
+}
+/* wrapper span must also be inline so it doesn't stretch */
+#s14rec12, #s14rec6, #s14rec3, #s14rec1 {
+  display: inline-flex;
+  width: auto;
+}
+
+
+.s14-plan-right { display: flex; flex-direction: column; align-items: flex-end; }
+
+
+@keyframes borderPulse {
+  0%, 100% { box-shadow: 0 0 0 3px var(--pink-light); }
+  50%       { box-shadow: 0 0 0 6px var(--pink-mid); }
+}
+.s14-plan-row.best {
+  animation: borderPulse 2s ease-in-out infinite;
 }
 
 </style>
@@ -3037,39 +3059,43 @@ html, body {
         <p class="s14-pricing-sub">Longer plans save more — all include free shipping and clinician support.</p>
 
         <div class="s14-pricing-grid">
+          <!-- 12mo — always best/gradient border -->
           <div class="s14-plan-row best" id="s14row12">
+            <div class="s14-plan-save" id="s14s12"></div>
             <div class="s14-plan-best-badge">🏆 Best Value</div>
             <div class="s14-plan-top">
               <div class="s14-plan-dur">12 Month Supply</div>
               <div class="s14-plan-price" id="s14p12">—<span>/mo</span></div>
             </div>
             <div class="s14-plan-badges">
-              <span class="s14-plan-save" id="s14s12" style="margin:0;"></span>
               <span class="s14-badge-blue">✦ Upgraded Benefits</span>
+              <span id="s14rec12"></span>
             </div>
             <button class="s14-plan-btn" onclick="s14BuyNow('12mo')">Purchase</button>
           </div>
 
           <div class="s14-plan-row" id="s14row6">
+            <div class="s14-plan-save" id="s14s6"></div>
             <div class="s14-plan-top">
               <div class="s14-plan-dur">6 Month Supply</div>
               <div class="s14-plan-price" id="s14p6">—<span>/mo</span></div>
             </div>
             <div class="s14-plan-badges">
-              <span class="s14-plan-save" id="s14s6" style="margin:0;"></span>
               <span class="s14-badge-blue">✦ Upgraded Benefits</span>
+              <span id="s14rec6"></span>
             </div>
             <button class="s14-plan-btn" onclick="s14BuyNow('6mo')">Purchase</button>
           </div>
 
           <div class="s14-plan-row" id="s14row3">
+            <div class="s14-plan-save" id="s14s3"></div>
             <div class="s14-plan-top">
               <div class="s14-plan-dur">3 Month Supply</div>
               <div class="s14-plan-price" id="s14p3">—<span>/mo</span></div>
             </div>
             <div class="s14-plan-badges">
-              <span class="s14-plan-save" id="s14s3" style="margin:0;"></span>
               <span class="s14-badge-blue">✦ Upgraded Benefits</span>
+              <span id="s14rec3"></span>
             </div>
             <button class="s14-plan-btn" onclick="s14BuyNow('3mo')">Purchase</button>
           </div>
@@ -3080,7 +3106,8 @@ html, body {
               <div class="s14-plan-price" id="s14p1">—<span>/mo</span></div>
             </div>
             <div class="s14-plan-badges">
-              <span class="s14-badge-green">✦ Upgraded Benefits</span>
+              <span class="s14-badge-blue">✦ Upgraded Benefits</span>
+              <span id="s14rec1"></span>
             </div>
             <button class="s14-plan-btn" onclick="s14BuyNow('1mo')">Purchase</button>
           </div>
@@ -4211,12 +4238,9 @@ function s14Render() {
   document.getElementById('s14TabCard').classList.remove('active');
   const p = document.getElementById('s14Pricing');
   if (p) { p.classList.remove('visible'); }
-  ['s14row12','s14row6','s14row3','s14row1'].forEach(id => {
-    const r = document.getElementById(id);
-    if (!r) return;
-    r.classList.remove('recommended');
-    const b = r.querySelector('.s14-recommended-badge');
-    if (b) b.remove();
+  ['12','6','3','1'].forEach(n => {
+    const r = document.getElementById('s14rec' + n);
+    if (r) r.innerHTML = '';
   });
   // Start testimonial auto-advance
   if (s14SlideTimer) clearInterval(s14SlideTimer);
@@ -4253,21 +4277,14 @@ function s14SelectFF(type) {
     const priceEl = document.getElementById('s14p' + num);
     if (priceEl) priceEl.innerHTML = '$' + (d.price + tabExtra) + '<span>/mo</span>';
     const saveEl = document.getElementById('s14s' + num);
-    if (saveEl) { saveEl.textContent = d.save || ''; saveEl.style.display = d.save ? 'inline-block' : 'none'; }
-    // Apply/remove recommended badge
-    const row = document.getElementById('s14row' + num);
-    if (row) {
-      const existing = row.querySelector('.s14-recommended-badge');
-      if (existing) existing.remove();
-      row.classList.remove('recommended');
-      if (k === recKey) {
-        row.classList.add('recommended');
-        const badge = document.createElement('div');
-        badge.className = 's14-recommended-badge';
-        badge.textContent = '✓ Recommended';
-        row.insertBefore(badge, row.firstChild);
-      }
+    if (saveEl) {
+      if (d.save) { saveEl.textContent = d.save; saveEl.classList.add('visible'); }
+      else { saveEl.textContent = ''; saveEl.classList.remove('visible'); }
     }
+    // Put recommended badge inline in badges div
+      const recEl = document.getElementById('s14rec' + num);
+      if (recEl) recEl.innerHTML = k === recKey ? '<span class="s14-recommended-badge">★ Recommended</span>' : '';
+    
   });
 
   const titleEl = document.getElementById('s14PricingTitle');
