@@ -392,7 +392,8 @@ body::before {
   opacity: 1; transform: translateY(0);
   pointer-events: auto; max-height: 120px; margin-bottom: 16px;
 }
-.s2-bmi-callout.bmi-normal    { background: #F0FDF4; border: 1px solid #BBF7D0; }
+.s2-bmi-callout.bmi-normal    { background: #F0FDF4 !important; border: 1px solid #BBF7D0 !important; }
+.s2-bmi-callout.bmi-normal #s2BmiIcon { color: #15803D !important; background: #DCFCE7 !important; }
 .s2-bmi-callout.bmi-over      { background: var(--yellow-light); border: 1px solid rgba(240,200,0,0.3); }
 .s2-bmi-callout.bmi-obese     { background: #FFF7ED; border: 1px solid #FED7AA; }
 
@@ -400,7 +401,7 @@ body::before {
 .s2-bmi-title {
   font-family: 'Inter Tight', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 2px;
 }
-.s2-bmi-callout.bmi-normal .s2-bmi-title  { color: #15803D; }
+.s2-bmi-callout.bmi-normal .s2-bmi-title  { color: #15803D !important; }
 .s2-bmi-callout.bmi-over .s2-bmi-title    { color: #854D0E; }
 .s2-bmi-callout.bmi-obese .s2-bmi-title   { color: #C2410C; }
 .s2-bmi-body { font-size: 12px; color: var(--muted); line-height: 1.5; }
@@ -1094,7 +1095,7 @@ body::before {
 /* ─── STEP 12: CONTACT INFO ─── */
 .s12-approved-badge {
   display: inline-flex; align-items: center; gap: 7px;
-  background: #16A34A; color: #fff;
+  background: #DCFCE7; color: #15803D; border: 1px solid #BBF7D0;
   border-radius: 100px; padding: 6px 16px;
   font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
   margin-bottom: 16px;
@@ -1928,6 +1929,64 @@ html, body {
   animation: borderPulse 2s ease-in-out infinite;
 }
 
+
+.bmi-low { background: #FEF2F2 !important; border-color: #FECACA !important; }
+.bmi-low #s2BmiIcon { background: #FEE2E2 !important; color: #DC2626 !important; }
+.bmi-low #s2BmiTitle { color: #DC2626 !important; }
+.bmi-low #s2BmiBody { color: #991B1B !important; }
+
+
+/* ── Step 14 pricing cards — white background kept ── */
+
+/* ── Shine animation on Purchase button ── */
+@keyframes btnShine {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.s14-plan-btn {
+  background: #1A2E1A !important;
+  color: #fff !important;
+  border: 1px solid #3D6B3D !important;
+  position: relative;
+  overflow: hidden;
+}
+.s14-plan-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%);
+  animation: shineSlide 2.4s ease-in-out infinite;
+}
+@keyframes shineSlide {
+  0%   { left: -100%; }
+  40%  { left: 130%; }
+  100% { left: 130%; }
+}
+.s14-plan-btn:hover {
+  background: #2A4A2A !important;
+  border-color: #4ADE80 !important;
+}
+
+
+.s7-med-pill-blocked {
+  opacity: 0.45;
+  filter: grayscale(1);
+  position: relative;
+}
+.s7-med-pill-blocked .s7-med-icon {
+  border-color: #DC2626 !important;
+  background: #FEF2F2 !important;
+}
+.s7-med-na {
+  position: absolute; top: 4px; right: 4px;
+  background: #DC2626; color: #fff;
+  font-size: 8px; font-weight: 800;
+  border-radius: 4px; padding: 1px 4px;
+  letter-spacing: 0.05em;
+}
+.s7-med-pill { position: relative; }
+
 </style>
 </head>
 <body>
@@ -1947,7 +2006,7 @@ html, body {
 </nav>
 
 <div class="announce-bar">
-  <span>🌞 Claim Your Pre-Summer Discount</span>
+  <span>💰 Sign Up Now &amp; Claim $20 OFF!</span>
   <span class="announce-timer" id="announceTimer">10:00</span>
 </div>
 
@@ -2338,31 +2397,58 @@ html, body {
 
         <div class="s5-med-dropdown" id="s5MedDropdown">
           <div class="s5-med-dropdown-label">Which medication(s)? Select all that apply.</div>
-          <div class="s5-med-grid">
+          <div class="s5-med-grid" style="grid-template-columns: repeat(2, 1fr);">
             <div class="s5-med-chip" onclick="s5ToggleMed(this,'sema-injection')">
               <svg class="s5-chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 2l4 4-2 2-4-4 2-2zM3 21l6-6M5 15l4 4M9 11l4-4 4 4-4 4-4-4z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Compounded Semaglutide<br>Injection
+              Semaglutide<br>Injection
             </div>
             <div class="s5-med-chip" onclick="s5ToggleMed(this,'sema-tablet')">
               <svg class="s5-chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="8" width="18" height="8" rx="4" stroke="currentColor" stroke-width="1.6"/><line x1="12" y1="8" x2="12" y2="16" stroke="currentColor" stroke-width="1.6"/></svg>
-              Compounded Semaglutide<br>Tablet
+              Semaglutide<br>Tablet
             </div>
             <div class="s5-med-chip" onclick="s5ToggleMed(this,'tirz-injection')">
               <svg class="s5-chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 2l4 4-2 2-4-4 2-2zM3 21l6-6M5 15l4 4M9 11l4-4 4 4-4 4-4-4z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Compounded Tirzepatide<br>Injection
+              Tirzepatide<br>Injection
             </div>
             <div class="s5-med-chip" onclick="s5ToggleMed(this,'tirz-tablet')">
               <svg class="s5-chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="8" width="18" height="8" rx="4" stroke="currentColor" stroke-width="1.6"/><line x1="12" y1="8" x2="12" y2="16" stroke="currentColor" stroke-width="1.6"/></svg>
-              Compounded Tirzepatide<br>Tablet
+              Tirzepatide<br>Tablet
             </div>
-            <div class="s5-med-chip" onclick="s5ToggleMed(this,'branded')">
-              <svg class="s5-chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="9" y="2" width="6" height="20" rx="2" fill="currentColor"/><rect x="2" y="9" width="20" height="6" rx="2" fill="currentColor"/></svg>
-              Ozempic, Wegovy,<br>Mounjaro &amp; Zepbound
-            </div>
-            <div class="s5-med-chip" onclick="s5ToggleMed(this,'other')">
-              <svg class="s5-chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-              Other
-            </div>
+          </div>
+
+          <!-- Dosage dropdown — shown when a med is selected -->
+          <div id="s5DosageSection" style="display:none;margin-top:14px;">
+            <div class="s5-med-dropdown-label">What dosage are you/were you taking?</div>
+            <select id="s5DosageSelect" class="quiz-input" onchange="s5OnDosageChange()" style="margin-top:6px;">
+              <option value="" disabled selected>Select dosage...</option>
+              <option value="0.25mg">0.25 mg</option>
+              <option value="0.5mg">0.5 mg</option>
+              <option value="1mg">1 mg</option>
+              <option value="1.7mg">1.7 mg</option>
+              <option value="2mg">2 mg</option>
+              <option value="2.4mg">2.4 mg</option>
+              <option value="2.5mg">2.5 mg</option>
+              <option value="5mg">5 mg</option>
+              <option value="7.5mg">7.5 mg</option>
+              <option value="10mg">10 mg</option>
+              <option value="12.5mg">12.5 mg</option>
+              <option value="15mg">15 mg</option>
+              <option value="other">Not sure / Other</option>
+            </select>
+          </div>
+
+          <!-- How long ago — only shown for "past" choice -->
+          <div id="s5HowLongSection" style="display:none;margin-top:14px;">
+            <div class="s5-med-dropdown-label">How long ago did you stop taking it?</div>
+            <select id="s5HowLongSelect" class="quiz-input" onchange="s5OnHowLongChange()" style="margin-top:6px;">
+              <option value="" disabled selected>Select timeframe...</option>
+              <option value="6-8wks">6–8 weeks ago</option>
+              <option value="2-3mo">2–3 months ago</option>
+              <option value="3-6mo">3–6 months ago</option>
+              <option value="6-12mo">6–12 months ago</option>
+              <option value="1-2yr">1–2 years ago</option>
+              <option value="2yr+">More than 2 years ago</option>
+            </select>
           </div>
         </div>
 
@@ -2746,7 +2832,7 @@ html, body {
 
         <div class="s12-approved-badge">
           <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
-            <path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1 4l2.5 2.5L9 1" stroke="#15803D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           GLP-1 Eligibility: Approved
         </div>
@@ -2787,7 +2873,7 @@ html, body {
               <path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div class="s12-sms-text" style="font-size:11px;line-height:1.6;">By checking this box and clicking Continue, you agree to receive recurring texts from Curex for account and care updates. Msg frequency varies. Msg &amp; data rates may apply. STOP to opt out, HELP for help. <a href="https://getcurex.com/terms" target="_blank" style="color:var(--muted);text-decoration:underline;">Terms of Service</a>, <a href="https://getcurex.com/privacy" target="_blank" style="color:var(--muted);text-decoration:underline;">Privacy Policy</a>.</div>
+          <div class="s12-sms-text" style="font-size:11px;line-height:1.6;">By checking this box I confirm that the information I've shared is accurate and I provide <a href="https://getcurex.com/glp1-legal/informed-consent-to-telehealth?srsltid=AfmBOorSorUBulZAylQ9wx9FpZ8WAu5622Wlf1ZCFPpqVLUgpJavBkuy" target="_blank" style="color:var(--muted);text-decoration:underline;">Informed Consent</a>. By clicking Continue, you agree to receive recurring texts from Curex for account and care updates. Msg frequency varies. Msg &amp; data rates may apply. STOP to opt out, HELP for help. <a href="https://getcurex.com/terms" target="_blank" style="color:var(--muted);text-decoration:underline;">Terms of Service</a>, <a href="https://getcurex.com/privacy" target="_blank" style="color:var(--muted);text-decoration:underline;">Privacy Policy</a>.</div>
         </div>
 
         <button class="quiz-continue-btn" id="s12ContinueBtn" onclick="s12SaveAndContinue()">
@@ -2879,7 +2965,7 @@ html, body {
             <div class="s13-benefit-row"><div class="s13-benefit-icon">🎫</div><div class="s13-benefit-text">Membership Fee Waived</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$199</span><span class="s13-benefit-free">FREE</span></div></div>
             <div class="s13-benefit-row"><div class="s13-benefit-icon">👨‍⚕️</div><div class="s13-benefit-text">Unlimited Provider Consults</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$129</span><span class="s13-benefit-free">FREE</span></div></div>
             <div class="s13-benefit-row"><div class="s13-benefit-icon">🚚</div><div class="s13-benefit-text">Free 2-day delivery on every refill</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$49</span><span class="s13-benefit-free">FREE</span></div></div>
-            <div class="s13-benefit-row"><div class="s13-benefit-icon">📞</div><div class="s13-benefit-text">Always-on medical support via phone &amp; chat</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$89</span><span class="s13-benefit-free">FREE</span></div></div>
+            <div class="s13-benefit-row"><div class="s13-benefit-icon">📞</div><div class="s13-benefit-text">24/7 medical support via phone &amp; chat</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$89</span><span class="s13-benefit-free">FREE</span></div></div>
             <div class="s13-benefit-row" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-radius:12px;padding:12px 14px;margin:4px 0;border-bottom:none;">
               <div class="s13-benefit-text" style="font-weight:800;color:#15803D;font-size:14px;">Total saved if you sign up today &amp; claim your summer offer</div>
               <div class="s13-benefit-price"><span style="font-size:18px;font-weight:900;color:#15803D;">$744</span></div>
@@ -2912,8 +2998,8 @@ html, body {
                 <div class="s13-med-body">
                   <div class="s13-med-v2-badge adv">Most Popular</div>
                   <div class="s13-med-v2-name">Tirzepatide</div>
-                  <div class="s13-med-stars">★★★★½</div>
-                  <div class="s13-med-count">4.7 · 50,000+ members</div>
+                  <div class="s13-med-stars">★★★★★</div>
+                  <div class="s13-med-count">4.7 · 32,250 members</div>
                   <div class="s13-med-desc">Dual-action GLP-1 + GIP weekly injection — clinically shown to produce greater weight loss than semaglutide alone.</div>
                   <div class="s13-med-from-label">Starts From</div>
                   <div class="s13-med-price">$299<span>/mo</span></div>
@@ -2930,8 +3016,8 @@ html, body {
                 <div class="s13-med-body">
                   <div class="s13-med-v2-badge aff">Most Affordable</div>
                   <div class="s13-med-v2-name">Semaglutide</div>
-                  <div class="s13-med-stars">★★★★½</div>
-                  <div class="s13-med-count">4.7 · 50,000+ members</div>
+                  <div class="s13-med-stars">★★★★★</div>
+                  <div class="s13-med-count">4.5 · 19,800 members</div>
                   <div class="s13-med-desc">Once-weekly GLP-1 injection that reduces appetite and cravings to support steady, sustainable weight loss.</div>
                   <div class="s13-med-from-label">Starts From</div>
                   <div class="s13-med-price">$199<span>/mo</span></div>
@@ -3126,7 +3212,7 @@ html, body {
           <div class="s13-benefit-row"><div class="s13-benefit-icon">🎫</div><div class="s13-benefit-text">Membership Fee Waived</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$199</span><span class="s13-benefit-free">FREE</span></div></div>
           <div class="s13-benefit-row"><div class="s13-benefit-icon">👨‍⚕️</div><div class="s13-benefit-text">Unlimited Provider Consults</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$129</span><span class="s13-benefit-free">FREE</span></div></div>
           <div class="s13-benefit-row"><div class="s13-benefit-icon">🚚</div><div class="s13-benefit-text">Free 2-day delivery on every refill</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$49</span><span class="s13-benefit-free">FREE</span></div></div>
-          <div class="s13-benefit-row"><div class="s13-benefit-icon">📞</div><div class="s13-benefit-text">Always-on medical support via phone &amp; chat</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$89</span><span class="s13-benefit-free">FREE</span></div></div>
+          <div class="s13-benefit-row"><div class="s13-benefit-icon">📞</div><div class="s13-benefit-text">24/7 medical support via phone &amp; chat</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$89</span><span class="s13-benefit-free">FREE</span></div></div>
           <div class="s13-benefit-row" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-radius:12px;padding:12px 14px;margin:4px 0;border-bottom:none;">
             <div class="s13-benefit-text" style="font-weight:800;color:#15803D;font-size:14px;">Total saved if you sign up today &amp; claim your summer offer</div>
             <div class="s13-benefit-price"><span style="font-size:18px;font-weight:900;color:#15803D;">$744</span></div>
@@ -3175,7 +3261,7 @@ function goToStep(n, dir) {
 
   currentStep = n;
   next.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'instant' });
 
   // Progress bar
   const pct = progressMap[n] || (n / totalSteps) * 100;
@@ -3334,11 +3420,16 @@ function s2OnChange() {
 
   // BMI callout
   const bmiBox = document.getElementById('s2BmiCallout');
-  bmiBox.classList.remove('bmi-normal', 'bmi-over', 'bmi-obese');
+  bmiBox.classList.remove('bmi-normal', 'bmi-over', 'bmi-obese', 'bmi-low');
   if (ftValid && inValid && weightValid) {
     const bmi = s2CalcBMI(ft, inches, weight);
     const bmiStr = bmi.toFixed(1);
-    if (bmi < 25) {
+    if (bmi < 22) {
+      bmiBox.classList.add('bmi-low');
+      document.getElementById('s2BmiIcon').textContent = '✕';
+      document.getElementById('s2BmiTitle').textContent = 'Your BMI is ' + bmiStr + ' (healthy range).';
+      document.getElementById('s2BmiBody').textContent = 'Unfortunately we are unable to treat patients with a BMI below 22. You may still complete the quiz.';
+    } else if (bmi < 25) {
       bmiBox.classList.add('bmi-normal');
       document.getElementById('s2BmiIcon').textContent = '✓';
       document.getElementById('s2BmiTitle').textContent = 'Your BMI is ' + bmiStr + ' (healthy range).';
@@ -3650,18 +3741,36 @@ function s5Select(el, type) {
   el.classList.add('selected');
   s5Choice = type;
   quiz.priorMeds = type;
+
+  // Always fully reset chip/dosage/howlong state on every switch
+  s5SelectedMeds = [];
+  document.querySelectorAll('.s5-med-chip').forEach(c => c.classList.remove('selected'));
+  const doseEl = document.getElementById('s5DosageSelect');
+  const howLongEl = document.getElementById('s5HowLongSection');
+  const howLongSel = document.getElementById('s5HowLongSelect');
+  const dosageSection = document.getElementById('s5DosageSection');
+  if (doseEl) doseEl.value = '';
+  if (howLongSel) howLongSel.value = '';
+  quiz.priorMedsList = [];
+  quiz.priorMedsDosage = '';
+  quiz.priorMedsHowLong = '';
   saveQuiz();
+
   const dropdown = document.getElementById('s5MedDropdown');
   const btn = document.getElementById('s5ContinueBtn');
+
   if (type === 'no') {
     dropdown.classList.remove('open');
-    s5SelectedMeds = [];
+    if (dosageSection) dosageSection.style.display = 'none';
+    if (howLongEl) howLongEl.style.display = 'none';
     btn.style.display = 'none';
     setTimeout(() => goToStep(6), 280);
   } else {
     dropdown.classList.add('open');
-    btn.style.display = 'block';
-    btn.classList.add('visible');
+    if (dosageSection) dosageSection.style.display = 'none'; // wait for chip selection
+    if (howLongEl) howLongEl.style.display = 'none'; // wait for dosage + chip
+    btn.style.display = 'none';
+    btn.classList.remove('visible');
   }
 }
 
@@ -3674,11 +3783,64 @@ function s5ToggleMed(el, med) {
   }
   quiz.priorMedsList = s5SelectedMeds;
   saveQuiz();
+  // Show dosage section only when ≥1 chip selected
+  const ds = document.getElementById('s5DosageSection');
+  if (ds) ds.style.display = s5SelectedMeds.length > 0 ? 'block' : 'none';
+  // Reset dosage and howlong when no chips selected
+  if (s5SelectedMeds.length === 0) {
+    const sel = document.getElementById('s5DosageSelect');
+    if (sel) sel.value = '';
+    quiz.priorMedsDosage = '';
+    const howLongEl = document.getElementById('s5HowLongSection');
+    if (howLongEl) howLongEl.style.display = 'none';
+    const howLongSel = document.getElementById('s5HowLongSelect');
+    if (howLongSel) howLongSel.value = '';
+    quiz.priorMedsHowLong = '';
+  }
+  s5UpdateContinueBtn();
+}
+
+function s5OnDosageChange() {
+  const val = document.getElementById('s5DosageSelect').value;
+  quiz.priorMedsDosage = val;
+  saveQuiz();
+  // Show how long ago only for past + dosage filled
+  const howLongEl = document.getElementById('s5HowLongSection');
+  if (howLongEl) {
+    howLongEl.style.display = (s5Choice === 'past' && val) ? 'block' : 'none';
+    if (!val) {
+      const hl = document.getElementById('s5HowLongSelect');
+      if (hl) hl.value = '';
+      quiz.priorMedsHowLong = '';
+    }
+  }
+  s5UpdateContinueBtn();
+}
+
+function s5OnHowLongChange() {
+  const val = document.getElementById('s5HowLongSelect').value;
+  quiz.priorMedsHowLong = val;
+  saveQuiz();
+  s5UpdateContinueBtn();
+}
+
+function s5UpdateContinueBtn() {
+  const btn = document.getElementById('s5ContinueBtn');
+  if (!btn) return;
+  const hasMed = s5SelectedMeds.length > 0;
+  const hasDose = (document.getElementById('s5DosageSelect')?.value || '') !== '';
+  const isPast = s5Choice === 'past';
+  const hasHowLong = isPast ? (document.getElementById('s5HowLongSelect')?.value || '') !== '' : true;
+  const ready = hasMed && hasDose && hasHowLong;
+  btn.style.display = ready ? 'block' : 'none';
+  btn.classList.toggle('visible', ready);
 }
 
 function s5Continue() {
   quiz.priorMeds = s5Choice;
   quiz.priorMedsList = s5SelectedMeds;
+  quiz.priorMedsDosage = document.getElementById('s5DosageSelect')?.value || '';
+  quiz.priorMedsHowLong = document.getElementById('s5HowLongSelect')?.value || '';
   saveQuiz();
   goToStep(6);
 }
@@ -3831,20 +3993,23 @@ function s7Render() {
   const el = document.getElementById('s7StateName');
   if (el) el.textContent = state || 'your state';
 
+  const isCA = state === 'California';
   const meds = [
-    { icon: '💉', name: 'Semaglutide<br>Injection' },
-    { icon: '💉', name: 'Tirzepatide<br>Injection' },
-    { icon: '💊', name: 'Semaglutide<br>Tablet' },
-    { icon: '💊', name: 'Tirzepatide<br>Tablet' },
+    { icon: '💉', name: 'Semaglutide<br>Injection', inj: true },
+    { icon: '💉', name: 'Tirzepatide<br>Injection', inj: true },
+    { icon: '💊', name: 'Semaglutide<br>Tablet', inj: false },
+    { icon: '💊', name: 'Tirzepatide<br>Tablet', inj: false },
   ];
 
   const container = document.getElementById('s7MedPills');
-  if (container) container.innerHTML = meds.map(m =>
-    '<div class="s7-med-pill">' +
-    '<div class="s7-med-icon">' + m.icon + '</div>' +
-    '<div class="s7-med-name">' + m.name + '</div>' +
-    '</div>'
-  ).join('');
+  if (container) container.innerHTML = meds.map(m => {
+    const blocked = isCA && m.inj;
+    return '<div class="s7-med-pill' + (blocked ? ' s7-med-pill-blocked' : '') + '">' +
+      '<div class="s7-med-icon">' + m.icon + '</div>' +
+      '<div class="s7-med-name">' + m.name + '</div>' +
+      (blocked ? '<div class="s7-med-na">N/A</div>' : '') +
+      '</div>';
+  }).join('');
 }
 
 // Patch goToStep to render step 7
@@ -4234,7 +4399,25 @@ function s14Render() {
   if (el) el.textContent = medName;
   // Reset form factor selection and recommended badges
   s14FF = null;
-  document.getElementById('s14InjCard').classList.remove('active');
+  const isCA14 = (quiz.state || '') === 'California';
+  const injCard = document.getElementById('s14InjCard');
+  const injCardInner = injCard ? injCard.querySelector('.s14-ff-label') : null;
+  if (injCard) {
+    injCard.classList.remove('active');
+    if (isCA14) {
+      injCard.style.opacity = '0.4';
+      injCard.style.filter = 'grayscale(1)';
+      injCard.style.pointerEvents = 'none';
+      injCard.style.border = '2.5px solid #DC2626';
+      if (injCardInner) injCardInner.innerHTML = 'Injection<div class="s14-ff-sub" style="color:#DC2626;font-weight:700;">Unavailable in your region</div>';
+    } else {
+      injCard.style.opacity = '';
+      injCard.style.filter = '';
+      injCard.style.pointerEvents = '';
+      injCard.style.border = '';
+      if (injCardInner) injCardInner.innerHTML = 'Injection<div class="s14-ff-sub">Once weekly</div>';
+    }
+  }
   document.getElementById('s14TabCard').classList.remove('active');
   const p = document.getElementById('s14Pricing');
   if (p) { p.classList.remove('visible'); }
@@ -4270,7 +4453,7 @@ function s14SelectFF(type) {
   else if (pace.startsWith('6')) recKey = '6mo';
   else if (pace.startsWith('3')) recKey = '3mo';
 
-  const tabExtra = type === 'tab' ? 10 : 0;
+  const tabExtra = 0;
   ['12mo','6mo','3mo','1mo'].forEach(k => {
     const d = data[k];
     const num = k.replace('mo','');
@@ -4299,7 +4482,7 @@ function s14BuyNow(duration) {
   quiz.selectedDuration = duration;
   quiz.selectedFormFactor = s14FF;
   const data = s14Pricing[med];
-  const surcharge = s14FF === 'tab' ? 10 : 0;
+  const surcharge = 0;
   quiz.selectedPrice = data[duration].price + surcharge;
   saveQuiz();
   // Update DB row with plan selection
