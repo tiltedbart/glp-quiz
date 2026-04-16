@@ -1358,8 +1358,8 @@ body::before {
   font-size: 48px; position: relative;
   flex-direction: column; gap: 6px;
 }
-.s13-med-img-sem { background: linear-gradient(145deg, #FFF5E6, #FFE0A0); }
-.s13-med-img-tir { background: linear-gradient(145deg, #E6F0FF, #B8D4FF); }
+.s13-med-img-sem { background: #F8F8F6; display:flex;align-items:center;justify-content:center; }
+.s13-med-img-tir { background: #F8F8F6; display:flex;align-items:center;justify-content:center; }
 .s13-med-img-badge {
   position: absolute; top: 8px; right: 8px;
   background: #F0FDF4; color: #16A34A;
@@ -1772,8 +1772,8 @@ html, body {
   width: 100%; aspect-ratio: 1/1;
   display: flex; align-items: center; justify-content: center; font-size: 52px;
 }
-.s14-ff-img-inj { background: linear-gradient(135deg, #EDE9FE 0%, #C4B5FD 100%); }
-.s14-ff-img-tab { background: linear-gradient(135deg, #DCFCE7 0%, #86EFAC 100%); }
+.s14-ff-img-inj { background: #F8F8F6; display:flex;align-items:center;justify-content:center; }
+.s14-ff-img-tab { background: #F8F8F6; display:flex;align-items:center;justify-content:center; }
 .s14-ff-label {
   padding: 12px 10px; text-align: center; background: var(--surface);
   font-family: 'Inter Tight', sans-serif; font-size: 14px; font-weight: 800;
@@ -2992,7 +2992,7 @@ html, body {
               <!-- Tirzepatide (LEFT) -->
               <div class="s13-med-v2" id="s13TirCard">
                 <div class="s13-med-img s13-med-img-tir">
-                  ⚡
+                  <img src="tirz-b.png" alt="Tirzepatide" style="width:85%;height:85%;object-fit:contain;">
                   <div class="s13-med-img-badge">In Stock</div>
                 </div>
                 <div class="s13-med-body">
@@ -3010,7 +3010,7 @@ html, body {
               <!-- Semaglutide (RIGHT) -->
               <div class="s13-med-v2" id="s13SemCard">
                 <div class="s13-med-img s13-med-img-sem">
-                  💉
+                  <img src="sem-b.png" alt="Semaglutide" style="width:85%;height:85%;object-fit:contain;">
                   <div class="s13-med-img-badge">In Stock</div>
                 </div>
                 <div class="s13-med-body">
@@ -3071,12 +3071,12 @@ html, body {
           <!-- Form factor cards -->
           <div class="s14-ff-grid">
             <div class="s14-ff-card" id="s14InjCard" onclick="s14SelectFF('inj')">
-              <div class="s14-ff-img s14-ff-img-inj">💉</div>
+              <div class="s14-ff-img s14-ff-img-inj"><img id="s14InjImg" src="" alt="Injection" style="width:80%;height:80%;object-fit:contain;"></div>
               <div class="s14-ff-label">Injection<div class="s14-ff-sub">Once weekly</div></div>
               <div class="s14-ff-sel">Selected ✓</div>
             </div>
             <div class="s14-ff-card" id="s14TabCard" onclick="s14SelectFF('tab')">
-              <div class="s14-ff-img s14-ff-img-tab">💊</div>
+              <div class="s14-ff-img s14-ff-img-tab"><img id="s14TabImg" src="" alt="Tablet" style="width:80%;height:80%;object-fit:contain;"></div>
               <div class="s14-ff-label">Tablet<div class="s14-ff-sub">Daily oral</div></div>
               <div class="s14-ff-sel">Selected ✓</div>
             </div>
@@ -3995,17 +3995,17 @@ function s7Render() {
 
   const isCA = state === 'California';
   const meds = [
-    { icon: '💉', name: 'Semaglutide<br>Injection', inj: true },
-    { icon: '💉', name: 'Tirzepatide<br>Injection', inj: true },
-    { icon: '💊', name: 'Semaglutide<br>Tablet', inj: false },
-    { icon: '💊', name: 'Tirzepatide<br>Tablet', inj: false },
+    { img: 'sem-i.png', name: 'Semaglutide<br>Injection', inj: true },
+    { img: 'tirz-i.png', name: 'Tirzepatide<br>Injection', inj: true },
+    { img: 'sem-t.png', name: 'Semaglutide<br>Tablet', inj: false },
+    { img: 'tirz-t.png', name: 'Tirzepatide<br>Tablet', inj: false },
   ];
 
   const container = document.getElementById('s7MedPills');
   if (container) container.innerHTML = meds.map(m => {
     const blocked = isCA && m.inj;
     return '<div class="s7-med-pill' + (blocked ? ' s7-med-pill-blocked' : '') + '">' +
-      '<div class="s7-med-icon">' + m.icon + '</div>' +
+      '<div class="s7-med-icon"><img src="' + m.img + '" alt="" style="width:100%;height:100%;object-fit:contain;border-radius:10px;"></div>' +
       '<div class="s7-med-name">' + m.name + '</div>' +
       (blocked ? '<div class="s7-med-na">N/A</div>' : '') +
       '</div>';
@@ -4397,6 +4397,11 @@ function s14Render() {
   const medName = med === 'tir' ? 'Tirzepatide' : 'Semaglutide';
   const el = document.getElementById('s14MedName');
   if (el) el.textContent = medName;
+  // Set form factor images based on selected med
+  const injImg = document.getElementById('s14InjImg');
+  const tabImg = document.getElementById('s14TabImg');
+  if (injImg) injImg.src = med === 'tir' ? 'tirz-i.png' : 'sem-i.png';
+  if (tabImg) tabImg.src = med === 'tir' ? 'tirz-t.png' : 'sem-t.png';
   // Reset form factor selection and recommended badges
   s14FF = null;
   const isCA14 = (quiz.state || '') === 'California';
