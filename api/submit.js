@@ -22,17 +22,45 @@ module.exports = async (req, res) => {
   try {
     const q = req.body;
     const db = getPool();
+
+    // If this is an update (plan selected on step 14), UPDATE existing row by email
+    if (q._update && q.email) {
+      await db.query(
+        `UPDATE quiz_submissions
+         SET selected_med = $1,
+             selected_form_factor = $2,
+             selected_duration = $3,
+             selected_price_per_month = $4,
+             raw_quiz_data = $5
+         WHERE email = $6`,
+        [
+          q.selectedMed || null,
+          q.selectedFormFactor || null,
+          q.selectedDuration || null,
+          q.selectedPrice ? parseFloat(q.selectedPrice) : null,
+          JSON.stringify(q),
+          q.email
+        ]
+      );
+      return res.status(200).json({ success: true, updated: true });
+    }
+
+    // Otherwise INSERT new submission (step 12 contact info)
     const result = await db.query(
       `INSERT INTO quiz_submissions (
         goal, height_ft, height_in, weight_lbs, target_weight_lbs, bmi,
         pace, prior_meds, sex, dob, age, state,
         contraindications_active, contraindications_history, compounding_preferences,
         first_name, last_name, email, phone, sms_consent,
-        selected_med, selected_duration, selected_price_per_month, raw_quiz_data
+        selected_med, selected_form_factor, selected_duration, selected_price_per_month,
+        raw_quiz_data
       ) VALUES (
         $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,
-        $13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24
-      ) RETURNING id`,
+        $13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25
+      ) ON CONFLICT (email) DO UPDATE SET
+        raw_quiz_data = EXCLUDED.raw_quiz_data,
+        selected_med = COALESCE(EXCLUDED.selected_med, quiz_submissions.selected_med)
+      RETURNING id`,
       [
         q.goal||null,
         q.heightFt ? parseInt(q.heightFt) : null,
@@ -50,7 +78,9 @@ module.exports = async (req, res) => {
         q.firstName||null, q.lastName||null,
         q.email||null, q.phone||null,
         q.smsConsent||false,
-        q.selectedMed||null, q.selectedDuration||null,
+        q.selectedMed||null,
+        q.selectedFormFactor||null,
+        q.selectedDuration||null,
         q.selectedPrice ? parseFloat(q.selectedPrice) : null,
         JSON.stringify(q)
       ]

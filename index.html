@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Curex — GLP-1 Quiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,15 +68,17 @@ body::before {
 /* ─── NAV ─── */
 .quiz-nav {
   position: fixed;
-  top: 3px; left: 0; right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 200;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 64px;
+  height: 54px;
   padding: 0 40px;
   background: #FFFFFF;
-  border-bottom: 1px solid var(--border);
+  border-bottom: none;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
 }
 
 .quiz-nav-back {
@@ -100,8 +102,8 @@ body::before {
 .quiz-nav-back.visible { opacity: 1; pointer-events: all; }
 .quiz-nav-back:hover { color: var(--text); }
 
-.quiz-logo { height: 48px; width: auto; display: block; }
-@media (min-width: 768px) { .quiz-logo { height: 56px; } }
+.quiz-logo { height: 36px; width: auto; display: block; }
+@media (min-width: 768px) { .quiz-logo { height: 40px; } }
 
 /* ─── STEP SYSTEM ─── */
 .quiz-page {
@@ -1033,8 +1035,18 @@ body::before {
 /* ─── STEP 11: MEDICAL REVIEW ─── */
 .s11-status-badge {
   display: inline-flex; align-items: center; gap: 7px;
-  background: linear-gradient(135deg, var(--yellow-dark), var(--pink));
-  color: #fff; border-radius: 100px; padding: 6px 16px;
+  background: #DCFCE7; color: #15803D;
+  border: 1px solid #BBF7D0;
+  border-radius: 100px; padding: 6px 16px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+.s11-status-badge svg path { stroke: #15803D; }
+.s11-status-badge-ineligible {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #FEE2E2; color: #DC2626;
+  border: 1px solid #FECACA;
+  border-radius: 100px; padding: 6px 16px;
   font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
   margin-bottom: 16px;
 }
@@ -1146,7 +1158,7 @@ body::before {
 .s13-inner { max-width: 480px; margin: 0 auto; padding: 0 24px; }
 
 /* Hero — same off-white bg as rest of quiz */
-.s13-hero { padding: 36px 24px 24px; }
+.s13-hero { padding: 28px 24px 12px; }
 .s13-hero-badge {
   display: inline-flex; align-items: center; gap: 7px;
   background: #16A34A; color: #fff;
@@ -1170,7 +1182,7 @@ body::before {
 /* Compare card */
 .s13-compare {
   background: linear-gradient(155deg, #120828 0%, #1C1040 55%, #0B1E35 100%);
-  border: none; border-radius: 16px; overflow: hidden; margin-bottom: 8px;
+  border: none; border-radius: 16px; overflow: hidden; margin-bottom: 4px;
 }
 .s13-compare-head {
   display: grid; grid-template-columns: 1fr 36px 1fr;
@@ -1482,7 +1494,7 @@ body::before {
 }
 
 /* ── Next Steps ── */
-.s13-nextsteps { padding: 28px 24px 8px; }
+.s13-nextsteps { padding: 10px 24px 8px; }
 .s13-nextsteps-title {
   font-family: 'Inter Tight', sans-serif;
   font-size: 22px; font-weight: 900; letter-spacing: -0.025em;
@@ -1507,7 +1519,7 @@ body::before {
 }
 .s13-scroll-btn {
   display: block; width: 100%; padding: 14px;
-  border: none; border-radius: 100px; margin-top: 14px;
+  border: none; border-radius: 100px; margin-top: 0;
   background: linear-gradient(135deg, var(--yellow), var(--pink));
   color: #fff; font-family: 'Instrument Sans', sans-serif;
   font-size: 15px; font-weight: 700; cursor: pointer;
@@ -1569,6 +1581,331 @@ body::before {
   font-size: 13px; font-weight: 800; color: #16A34A;
 }
 
+
+/* ── Step 5 med selector ── */
+.s5-med-dropdown { display: none; margin-top: 14px; animation: fadeIn 0.2s ease; }
+.s5-med-dropdown.open { display: block; }
+.s5-med-dropdown-label { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px; }
+.s5-med-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.s5-med-chip {
+  background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: 10px; padding: 10px 8px; cursor: pointer;
+  text-align: center; transition: border-color 0.15s, background 0.15s;
+  font-size: 11px; font-weight: 600; color: var(--text); line-height: 1.3;
+}
+.s5-med-chip:hover { border-color: var(--pink); }
+.s5-med-chip.selected { border-color: var(--pink); background: var(--pink-light); color: var(--pink); }
+.s5-med-chip-icon { font-size: 18px; margin-bottom: 4px; display: block; }
+
+
+.s5-chip-icon {
+  width: 22px; height: 22px; display: block;
+  margin: 0 auto 5px; color: var(--subtle);
+}
+.s5-med-chip.selected .s5-chip-icon { color: var(--pink); }
+
+
+.s5-chip-tag {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 100px; margin-bottom: 5px; display: inline-block;
+}
+.s5-chip-inject { background: #EDE9FE; color: #6D28D9; }
+.s5-chip-tablet  { background: #D1FAE5; color: #065F46; }
+.s5-chip-brand   { background: #FEF3C7; color: #92400E; }
+.s5-chip-other   { background: #F1F5F9; color: #64748B; }
+.s5-med-chip { font-size: 12px; }
+
+
+.s6-state-dropdown {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  max-height: 200px; overflow-y: auto; display: none;
+}
+.s6-state-dropdown.open { display: block; }
+.s6-state-option { padding: 11px 16px; font-size: 14px; cursor: pointer; color: var(--text); transition: background 0.1s; }
+.s6-state-option:hover, .s6-state-option:active { background: var(--pink-light); color: var(--pink); }
+
+
+/* ── Announcement Bar ── */
+.announce-bar {
+  position: fixed;
+  top: 54px;
+  border-top: none; /* below the nav */
+  left: 0; right: 0;
+  z-index: 99;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(90deg, #0EA5E9 0%, #6366F1 50%, #8B5CF6 100%);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.announce-timer {
+  background: rgba(0,0,0,0.18);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+  font-size: 12px;
+}
+
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  touch-action: pan-y;
+}
+
+
+@media (max-width: 600px) {
+  .quiz-page {
+    padding-top: 120px;
+  }
+}
+
+
+@media (max-width: 600px) {
+  /* Compact step 2 BMI on mobile */
+  #quizStep2 .quiz-card-body { padding: 16px 16px 18px; }
+  #quizStep2 .s2-headline { font-size: 18px; margin-bottom: 2px; }
+  #quizStep2 .s2-subtext { font-size: 12px; margin-bottom: 10px; }
+  #quizStep2 .s2-bmi-callout { padding: 10px 14px; margin-bottom: 10px; }
+  #quizStep2 .quiz-field-group { margin-bottom: 10px; }
+  #quizStep2 .quiz-field-label { font-size: 11px; margin-bottom: 4px; }
+  #quizStep2 .s2-weight-error { font-size: 11px; }
+  #quizStep2 p { margin: 6px 0 10px; }
+  #quizStep2 .quiz-continue-btn { padding: 12px; margin-top: 10px; }
+  .quiz-page { padding-top: 110px; }
+}
+
+
+@media (max-width: 600px) {
+  #quizStep3 .quiz-card-body { padding: 16px 16px 16px; }
+  #quizStep3 .s3-question { font-size: 17px; margin-bottom: 10px; }
+  #quizStep3 .s3-option { padding: 12px 14px; }
+  #quizStep3 .s3-option-title { font-size: 14px; }
+  #quizStep3 .s3-option-sub { font-size: 11px; }
+  #quizStep3 .s3-testimonials { margin-top: 10px; }
+  #quizStep3 .s3-testimonial { padding: 12px 14px; }
+  #quizStep3 .s3-testimonial-text { font-size: 12px; }
+}
+
+
+@media (max-width: 600px) {
+  #quizStep7 .s7-stats { gap: 8px; margin-top: 8px; }
+  #quizStep7 .s7-stats .quiz-card-body { padding: 12px 14px; }
+  #quizStep7 .s7-stat-label { font-size: 9px; margin-bottom: 2px; }
+  #quizStep7 .s7-stat-num { font-size: 28px; }
+  #quizStep7 .s7-stat-sup { font-size: 14px; }
+  #quizStep7 .s7-stat-desc { font-size: 11px; line-height: 1.4; margin-top: 2px; }
+  #quizStep7 .quiz-continue-btn { margin-top: 12px; padding: 12px; }
+}
+
+
+.s11-ineligible-msg {
+  display: none;
+  background: #FFF5F5; border: 1px solid #FECACA;
+  border-radius: 14px; padding: 20px;
+  font-size: 13px; color: #7F1D1D; line-height: 1.7;
+  margin-top: 8px;
+}
+.s11-ineligible-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px; font-weight: 800; color: #DC2626;
+  margin-bottom: 10px; letter-spacing: -0.01em;
+}
+@media (max-width: 600px) {
+  #quizStep11 .s11-headline { font-size: 22px; margin-bottom: 10px; }
+  #quizStep11 .s11-section { margin-bottom: 8px; }
+  #quizStep11 .s11-section-head { font-size: 11px; padding: 8px 14px; }
+  #quizStep11 .s11-row { padding: 8px 14px; }
+  #quizStep11 .s11-row-label { font-size: 12px; }
+  #quizStep11 .s11-row-val { font-size: 14px; }
+  #quizStep11 .quiz-continue-btn { padding: 12px; margin-top: 10px; }
+}
+
+.s11-ineligible-cat { color: #DC2626 !important; font-weight: 700; }
+
+/* ── Step 14: Plans ── */
+#quizStep14 { align-items: stretch; padding: 0; }
+#quizStep14 > div { max-width: 100%; width: 100%; }
+.s14-inner { max-width: 480px; margin: 0 auto; padding: 0 24px; }
+
+.s14-hero { padding: 28px 24px 20px; }
+.s14-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #DCFCE7; color: #15803D; border: 1px solid #BBF7D0;
+  border-radius: 100px; padding: 5px 14px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; margin-bottom: 14px;
+}
+.s14-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: clamp(22px,5.5vw,30px); font-weight: 900;
+  letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 8px;
+}
+.s14-title-grad {
+  background: linear-gradient(135deg, var(--yellow-dark), var(--pink));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.s14-sub { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+
+/* Form factor cards */
+.s14-ff-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;
+}
+.s14-ff-card {
+  border-radius: 18px; overflow: hidden; cursor: pointer;
+  border: 2.5px solid var(--border); transition: border-color 0.2s, transform 0.15s;
+  position: relative; background: var(--surface);
+}
+.s14-ff-card:active { transform: scale(0.97); }
+.s14-ff-card.active { border-color: var(--pink); box-shadow: 0 0 0 3px var(--pink-light); }
+.s14-ff-img {
+  width: 100%; aspect-ratio: 1/1;
+  display: flex; align-items: center; justify-content: center; font-size: 52px;
+}
+.s14-ff-img-inj { background: linear-gradient(135deg, #EDE9FE 0%, #C4B5FD 100%); }
+.s14-ff-img-tab { background: linear-gradient(135deg, #DCFCE7 0%, #86EFAC 100%); }
+.s14-ff-label {
+  padding: 12px 10px; text-align: center; background: var(--surface);
+  font-family: 'Inter Tight', sans-serif; font-size: 14px; font-weight: 800;
+}
+.s14-ff-sub { font-size: 11px; color: var(--muted); font-weight: 500; margin-top: 2px; }
+.s14-ff-sel {
+  position: absolute; top: 8px; right: 8px;
+  background: var(--pink); color: #fff; border-radius: 100px;
+  font-size: 10px; font-weight: 700; padding: 3px 8px; display: none;
+}
+.s14-ff-card.active .s14-ff-sel { display: block; }
+
+/* Testimonials */
+.s14-testimonials { padding: 0 24px 24px; }
+.s14-testi-label {
+  font-size: 11px; font-weight: 700; color: var(--subtle);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  text-align: center; margin-bottom: 12px;
+}
+.s14-testi-slide { display: none; }
+.s14-testi-slide.active { display: block; }
+.s14-testi-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 18px;
+}
+.s14-testi-stars { color: #F59E0B; font-size: 13px; margin-top: 3px; }
+.s14-testi-text {
+  font-size: 13px; color: var(--muted); line-height: 1.65;
+  font-style: italic; margin-top: 12px;
+}
+.s14-testi-author { display: flex; align-items: center; gap: 10px; }
+.s14-testi-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.s14-testi-name { font-size: 13px; font-weight: 700; }
+.s14-testi-meta { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.s14-testi-dots { display: flex; justify-content: center; gap: 6px; margin-top: 12px; }
+.s14-testi-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border); cursor: pointer; transition: background 0.2s;
+}
+.s14-testi-dot.active { background: var(--pink); }
+
+/* Pricing */
+.s14-pricing { padding: 0 24px 28px; display: none; }
+.s14-pricing.visible { display: block; }
+.s14-pricing-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 20px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 4px;
+}
+.s14-pricing-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.s14-pricing-grid {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.s14-plan-row {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 16px; padding: 16px; position: relative;
+  transition: border-color 0.15s;
+  display: flex; flex-direction: column;
+}
+.s14-plan-row.best {
+  border-color: var(--pink); box-shadow: 0 0 0 3px var(--pink-light);
+  margin-top: 14px;
+}
+.s14-plan-best-badge {
+  position: absolute; top: -11px; left: 16px;
+  background: linear-gradient(135deg, var(--yellow-dark), var(--pink));
+  color: #fff; border-radius: 100px; font-size: 10px; font-weight: 700;
+  padding: 3px 12px; white-space: nowrap;
+}
+.s14-plan-top {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
+}
+.s14-plan-dur {
+  font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 800;
+}
+.s14-plan-price {
+  font-family: 'Inter Tight', sans-serif; font-size: 24px; font-weight: 900;
+}
+.s14-plan-price span { font-size: 13px; font-weight: 500; color: var(--muted); }
+.s14-plan-save {
+  font-size: 11px; font-weight: 700; color: #16A34A;
+  background: #DCFCE7; padding: 2px 8px; border-radius: 100px;
+  display: inline-block; margin-bottom: 12px;
+}
+.s14-plan-btn {
+  width: 100%; padding: 11px;
+  border: none; border-radius: 10px;
+  background: #111; color: #fff;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  margin-top: auto;
+  transition: background 0.15s;
+}
+.s14-plan-btn:hover { background: #333; }
+
+/* Benefits reuse */
+.s14-benefits-wrap { padding: 0 24px 28px; }
+.s14-faq-wrap { padding: 0 24px 48px; }
+
+
+.s14-testi-top { display: flex; align-items: center; gap: 12px; }
+.s14-testi-img-placeholder {
+  width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0;
+  background: #EDE9FE;
+  display: flex; align-items: center; justify-content: center;
+}
+
+
+.s14-plan-badges { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; margin-top: 4px; }
+.s14-badge-green {
+  font-size: 10px; font-weight: 700; color: #15803D;
+  background: #DCFCE7; border-radius: 100px; padding: 2px 8px;
+  letter-spacing: 0.02em;
+}
+.s14-badge-blue {
+  font-size: 10px; font-weight: 700; color: #1D4ED8;
+  background: #DBEAFE; border-radius: 100px; padding: 2px 8px;
+}
+.s14-badge-amber {
+  font-size: 10px; font-weight: 700; color: #92400E;
+  background: #FEF3C7; border-radius: 100px; padding: 2px 8px;
+}
+.s14-plan-row.recommended { border-color: #16A34A; box-shadow: 0 0 0 3px #DCFCE7; }
+.s14-recommended-badge {
+  position: absolute; top: -11px; right: 16px;
+  background: #16A34A; color: #fff;
+  border-radius: 100px; font-size: 10px; font-weight: 700;
+  padding: 3px 10px; white-space: nowrap;
+}
+
 </style>
 </head>
 <body>
@@ -1587,13 +1924,18 @@ body::before {
   <img class="quiz-logo" src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAOEBkADASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAgJBgcDBAUCAf/EAFEQAQABAwMBBAELDwsEAgMBAQABAgMEBQYRBwgSITFRCRMiQWFxgZGSsbIUFRYYMjU2VFVydJOhwdEXIzM3OEJSVmJz4UNTlNIkNCWC8aLw/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AJlgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/2Q==" alt="Curex">
 </nav>
 
+<div class="announce-bar">
+  <span>🌞 Claim Your Pre-Summer Discount</span>
+  <span class="announce-timer" id="announceTimer">10:00</span>
+</div>
+
 <div class="quiz-page">
 
   <!-- ══ STEP 1: GOAL ══ -->
   <div class="quiz-step active" id="quizStep1">
 
     <div class="s1-hero">
-      <div class="s1-badge"><span class="s1-badge-dot"></span>2-minute quiz</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:20px;"><div class="s1-badge" style="margin-bottom:0;"><span class="s1-badge-dot"></span>3-Minute Quiz</div><div class="s1-badge" style="margin-bottom:0;background:var(--yellow-light);border:1px solid rgba(240,200,0,0.35);display:inline-flex;align-items:center;gap:5px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="7" r="4" fill="#7A5A00"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#7A5A00" stroke-width="2" stroke-linecap="round"/></svg>50,000+ Users</div></div>
       <h1 class="s1-headline">Lose weight without <em>thinking</em> about it.</h1>
       <p class="s1-subtext">Clinician-matched GLP-1 plans designed around your body.</p>
     </div>
@@ -1703,6 +2045,7 @@ body::before {
           </div>
           <div class="s2-weight-error" id="s2WeightError"></div>
         </div>
+        <p style="font-size:13px;font-weight:700;color:var(--text);margin:8px 0 16px;letter-spacing:-0.01em;">We treat patients with a BMI of 22 or higher.</p>
 
         <!-- Private note -->
         <div class="s2-private-note">
@@ -1941,50 +2284,78 @@ body::before {
       <div class="quiz-card-body">
 
         <div class="s5-question">Have you used weight loss medication in the past?</div>
-        <div class="s5-subtext">So your clinician can skip what hasn't worked and prescribe what will. <em>Includes Ozempic, Wegovy, Mounjaro, Zepbound, compounded semaglutide &amp; tirzepatide.</em></div>
+        <div class="s5-subtext">So your clinician can skip what hasn't worked and prescribe what will.</div>
 
         <div class="s5-options">
 
-          <div class="s5-option" onclick="s5Select(this)">
-            <div class="s5-option-icon">🙅</div>
+          <div class="s5-option" onclick="s5Select(this,'no')">
+            <div class="s5-option-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#FEE2E2"/><path d="M11 11l10 10M21 11l-10 10" stroke="#DC2626" stroke-width="2" stroke-linecap="round"/></svg></div>
             <div class="s5-option-text">
               <div class="s5-option-title">No, I'm new to this</div>
               <div class="s5-option-sub">Never tried weight loss medication.</div>
             </div>
           </div>
 
-          <div class="s5-option" onclick="s5Select(this)">
-            <div class="s5-option-icon">💉</div>
+          <div class="s5-option" onclick="s5Select(this,'past')">
+            <div class="s5-option-icon" style="background:#FEF9C3;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M19 3l2 2-2.5 2.5M14 8l-9 9a2 2 0 002.8 2.8L17 10" stroke="#92400E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16l-4 4M12 5l7 7" stroke="#B45309" stroke-width="1.6" stroke-linecap="round"/></svg></div>
             <div class="s5-option-text">
-              <div class="s5-option-title">Yes, I've tried GLP-1s</div>
-              <div class="s5-option-sub">Ozempic, Wegovy, Mounjaro, Zepbound, or compounded.</div>
+              <div class="s5-option-title">Yes, I have taken in the past</div>
+              <div class="s5-option-sub">Previously used but no longer on medication.</div>
             </div>
           </div>
 
-          <div class="s5-option" onclick="s5Select(this)">
-            <div class="s5-option-icon">💊</div>
+          <div class="s5-option" onclick="s5Select(this,'current')">
+            <div class="s5-option-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#DCFCE7"/><path d="M10 16l4.5 4.5L22 11" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div class="s5-option-text">
-              <div class="s5-option-title">Yes, other weight loss meds</div>
-              <div class="s5-option-sub">Phentermine, Qsymia, Contrave, or similar.</div>
-            </div>
-          </div>
-
-          <div class="s5-option" onclick="s5Select(this)">
-            <div class="s5-option-icon">✅</div>
-            <div class="s5-option-text">
-              <div class="s5-option-title">Yes, currently taking one</div>
-              <div class="s5-option-sub">Still on medication right now.</div>
+              <div class="s5-option-title">Yes, I am currently taking</div>
+              <div class="s5-option-sub">Still on medication right now, or <strong>taken within the past 6 weeks</strong>.</div>
             </div>
           </div>
 
         </div>
+
+        <div class="s5-med-dropdown" id="s5MedDropdown">
+          <div class="s5-med-dropdown-label">Which medication(s)? Select all that apply.</div>
+          <div class="s5-med-grid">
+            <div class="s5-med-chip" onclick="s5ToggleMed(this,'sema-injection')">
+              <svg class="s5-chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 2l4 4-2 2-4-4 2-2zM3 21l6-6M5 15l4 4M9 11l4-4 4 4-4 4-4-4z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Compounded Semaglutide<br>Injection
+            </div>
+            <div class="s5-med-chip" onclick="s5ToggleMed(this,'sema-tablet')">
+              <svg class="s5-chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="8" width="18" height="8" rx="4" stroke="currentColor" stroke-width="1.6"/><line x1="12" y1="8" x2="12" y2="16" stroke="currentColor" stroke-width="1.6"/></svg>
+              Compounded Semaglutide<br>Tablet
+            </div>
+            <div class="s5-med-chip" onclick="s5ToggleMed(this,'tirz-injection')">
+              <svg class="s5-chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 2l4 4-2 2-4-4 2-2zM3 21l6-6M5 15l4 4M9 11l4-4 4 4-4 4-4-4z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Compounded Tirzepatide<br>Injection
+            </div>
+            <div class="s5-med-chip" onclick="s5ToggleMed(this,'tirz-tablet')">
+              <svg class="s5-chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="8" width="18" height="8" rx="4" stroke="currentColor" stroke-width="1.6"/><line x1="12" y1="8" x2="12" y2="16" stroke="currentColor" stroke-width="1.6"/></svg>
+              Compounded Tirzepatide<br>Tablet
+            </div>
+            <div class="s5-med-chip" onclick="s5ToggleMed(this,'branded')">
+              <svg class="s5-chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="9" y="2" width="6" height="20" rx="2" fill="currentColor"/><rect x="2" y="9" width="20" height="6" rx="2" fill="currentColor"/></svg>
+              Ozempic, Wegovy,<br>Mounjaro &amp; Zepbound
+            </div>
+            <div class="s5-med-chip" onclick="s5ToggleMed(this,'other')">
+              <svg class="s5-chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Other
+            </div>
+          </div>
+        </div>
+
+        <button class="quiz-continue-btn" id="s5ContinueBtn" onclick="s5Continue()" style="display:none;margin-top:18px;">
+          Continue
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
 
       </div>
     </div>
   </div><!-- /step5 -->
 
 
-  <!-- ══ STEP 6: PATIENT DETAILS ══ -->
+  
+<!-- ══ STEP 6: PATIENT DETAILS ══ -->
   <div class="quiz-step" id="quizStep6">
     <div class="quiz-card" style="max-width:480px;width:100%;">
       <div class="quiz-card-body">
@@ -2026,66 +2397,12 @@ body::before {
         <!-- State -->
         <div class="s6-section" style="margin-bottom:22px;">
           <label class="s6-section-label">State</label>
-          <select class="s6-state-select" id="s6State" onchange="s6OnChange()">
-            <option value="" disabled selected>Select your state</option>
-              <option value="Alabama">Alabama</option>
-              <option value="Alaska">Alaska</option>
-              <option value="Arizona">Arizona</option>
-              <option value="Arkansas">Arkansas</option>
-              <option value="California">California</option>
-              <option value="Colorado">Colorado</option>
-              <option value="Connecticut">Connecticut</option>
-              <option value="Delaware">Delaware</option>
-              <option value="Florida">Florida</option>
-              <option value="Georgia">Georgia</option>
-              <option value="Hawaii">Hawaii</option>
-              <option value="Idaho">Idaho</option>
-              <option value="Illinois">Illinois</option>
-              <option value="Indiana">Indiana</option>
-              <option value="Iowa">Iowa</option>
-              <option value="Kansas">Kansas</option>
-              <option value="Kentucky">Kentucky</option>
-              <option value="Louisiana">Louisiana</option>
-              <option value="Maine">Maine</option>
-              <option value="Maryland">Maryland</option>
-              <option value="Massachusetts">Massachusetts</option>
-              <option value="Michigan">Michigan</option>
-              <option value="Minnesota">Minnesota</option>
-              <option value="Mississippi">Mississippi</option>
-              <option value="Missouri">Missouri</option>
-              <option value="Montana">Montana</option>
-              <option value="Nebraska">Nebraska</option>
-              <option value="Nevada">Nevada</option>
-              <option value="New Hampshire">New Hampshire</option>
-              <option value="New Jersey">New Jersey</option>
-              <option value="New Mexico">New Mexico</option>
-              <option value="New York">New York</option>
-              <option value="North Carolina">North Carolina</option>
-              <option value="North Dakota">North Dakota</option>
-              <option value="Ohio">Ohio</option>
-              <option value="Oklahoma">Oklahoma</option>
-              <option value="Oregon">Oregon</option>
-              <option value="Pennsylvania">Pennsylvania</option>
-              <option value="Rhode Island">Rhode Island</option>
-              <option value="South Carolina">South Carolina</option>
-              <option value="South Dakota">South Dakota</option>
-              <option value="Tennessee">Tennessee</option>
-              <option value="Texas">Texas</option>
-              <option value="Utah">Utah</option>
-              <option value="Vermont">Vermont</option>
-              <option value="Virginia">Virginia</option>
-              <option value="Washington">Washington</option>
-              <option value="West Virginia">West Virginia</option>
-              <option value="Wisconsin">Wisconsin</option>
-              <option value="Wyoming">Wyoming</option>
-          </select>
-          <div class="s6-hint">
-            <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-              <circle cx="7" cy="7" r="6" stroke="#ABABAB" stroke-width="1.3"/>
-              <path d="M7 6v4M7 4.5v.5" stroke="#ABABAB" stroke-width="1.3" stroke-linecap="round"/>
-            </svg>
-            Ensures your provider is licensed in your state
-          </div>
+          <input type="text" class="quiz-input" id="s6StateInput"
+            placeholder="Type your state..." autocomplete="off"
+            oninput="s6StateFilter(this.value)"
+            onblur="setTimeout(s6StateBlur,200)"
+          />
+          <div id="s6StateError" style="color:#EF4444;font-size:12px;margin-top:4px;display:none;">Please enter a valid US state.</div>
         </div>
 
         <button class="quiz-continue-btn" id="s6ContinueBtn" onclick="s6SaveAndContinue()">
@@ -2102,7 +2419,7 @@ body::before {
 
   <!-- ══ STEP 7: DELIVERY + SOCIAL PROOF ══ -->
   <div class="quiz-step" id="quizStep7">
-    <div style="max-width:480px;width:100%;">
+    <div style="max-width:480px;width:100%;margin:0 auto;">
 
       <div class="s7-headline">We deliver to <span class="s7-state-name" id="s7StateName">your state</span></div>
       <div class="s7-allset">You're all set.</div>
@@ -2112,6 +2429,10 @@ body::before {
         <div class="quiz-card-body" style="padding:20px 20px 22px;">
           <div class="s7-meds-label">Available treatments in your state</div>
           <div class="s7-med-pills" id="s7MedPills"></div>
+          <div style="margin-top:12px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#16A34A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size:12px;font-weight:700;color:#15803D;letter-spacing:-0.01em;">Your state qualifies for Free Shipping and 1–2 day delivery</span>
+          </div>
         </div>
       </div>
 
@@ -2222,35 +2543,35 @@ body::before {
               <div class="cx-check"><svg class="cx-check-icon" width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               <div class="cx-text"><div class="cx-title">None of the above</div></div>
             </div>
-            <div class="cx-option" onclick="cxToggle(this, 's8')">
+            <div class="cx-option" onclick="cxToggle(this, 's9')">
               <div class="cx-check"><svg class="cx-check-icon" width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               <div class="cx-text"><div class="cx-title">History of Diabetic Retinopathy</div></div>
             </div>
-            <div class="cx-option" onclick="cxToggle(this, 's8')">
+            <div class="cx-option" onclick="cxToggle(this, 's9')">
               <div class="cx-check"><svg class="cx-check-icon" width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               <div class="cx-text"><div class="cx-title">History of Gastroparesis</div></div>
             </div>
-            <div class="cx-option" onclick="cxToggle(this, 's8')">
+            <div class="cx-option" onclick="cxToggle(this, 's9')">
               <div class="cx-check"><svg class="cx-check-icon" width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               <div class="cx-text"><div class="cx-title">History of Pancreatitis</div></div>
             </div>
-            <div class="cx-option" onclick="cxToggle(this, 's8')">
+            <div class="cx-option" onclick="cxToggle(this, 's9')">
               <div class="cx-check"><svg class="cx-check-icon" width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               <div class="cx-text"><div class="cx-title">History of severe kidney dysfunction</div></div>
             </div>
-            <div class="cx-option" onclick="cxToggle(this, 's8')">
+            <div class="cx-option" onclick="cxToggle(this, 's9')">
               <div class="cx-check"><svg class="cx-check-icon" width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               <div class="cx-text"><div class="cx-title">History of Thyroid or Pancreatic Cancer</div></div>
             </div>
-            <div class="cx-option" onclick="cxToggle(this, 's8')">
+            <div class="cx-option" onclick="cxToggle(this, 's9')">
               <div class="cx-check"><svg class="cx-check-icon" width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               <div class="cx-text"><div class="cx-title">Hypersensitivity or allergy to GLP-1 drugs</div></div>
             </div>
-            <div class="cx-option" onclick="cxToggle(this, 's8')">
+            <div class="cx-option" onclick="cxToggle(this, 's9')">
               <div class="cx-check"><svg class="cx-check-icon" width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               <div class="cx-text"><div class="cx-title">Personal/family history of Medullary Thyroid Carcinoma</div><div class="cx-sub">Also known as MTC</div></div>
             </div>
-            <div class="cx-option" onclick="cxToggle(this, 's8')">
+            <div class="cx-option" onclick="cxToggle(this, 's9')">
               <div class="cx-check"><svg class="cx-check-icon" width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               <div class="cx-text"><div class="cx-title">Personal/family history of Multiple Endocrine Neoplasia Type 2</div><div class="cx-sub">Also known as MEN2</div></div>
             </div>
@@ -2302,7 +2623,7 @@ body::before {
   <div class="quiz-step" id="quizStep11">
     <div style="max-width:480px;width:100%;">
 
-      <div class="s11-status-badge">
+      <div class="s11-status-badge" id="s11StatusBadge">
         <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
           <path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -2349,7 +2670,7 @@ body::before {
       </div>
 
       <!-- Pre-weight analysis -->
-      <div class="s11-section">
+      <div class="s11-section" id="s11PreWeightSection">
         <div class="s11-section-head">Pre-Weight Analysis</div>
         <div class="s11-clinician-note">A licensed medical clinician is reviewing your profile now.</div>
         <div class="s11-row">
@@ -2369,12 +2690,28 @@ body::before {
         </div>
       </div>
 
-      <button class="quiz-continue-btn visible" style="margin-top:20px;" onclick="s11Continue()">
+      <!-- Ineligible message — shown in place of pre-weight section -->
+      <div class="s11-ineligible-msg" id="s11IneligibleMsg">
+        <div class="s11-ineligible-title">Thank you for your interest in Curex.</div>
+        <p>Based on the information provided, it appears that you are not currently eligible for treatment through Curex. This could be due to factors such as your BMI, current health conditions, or specific medical history that may require further evaluation.</p>
+        <p style="margin-top:10px;">We encourage you to consult with your primary care provider or a specialist for personalized advice. If your situation changes or you believe there may be a mistake, please contact us for a re-evaluation.</p>
+      </div>
+
+      <!-- Continue (eligible) -->
+      <button class="quiz-continue-btn visible" id="s11ContinueBtn" style="margin-top:16px;" onclick="s11Continue()">
         Continue
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
           <path d="M3 7h8M7.5 4l3.5 3-3.5 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
+
+      <!-- Contact us (ineligible) -->
+      <a href="mailto:hi@getcurex.com" id="s11ContactBtn" style="display:none;margin-top:16px;text-decoration:none;">
+        <button class="quiz-continue-btn visible" style="width:100%;background:linear-gradient(135deg,#DC2626,#9B1C1C);">
+          Contact Us
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#fff" stroke-width="1.8"/><path d="M22 6l-10 7L2 6" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </a>
 
     </div>
   </div><!-- /step11 -->
@@ -2428,7 +2765,7 @@ body::before {
               <path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div class="s12-sms-text">Provider updates, delivery tracking &amp; refill reminders via text. Unsubscribe anytime.</div>
+          <div class="s12-sms-text" style="font-size:11px;line-height:1.6;">By checking this box and clicking Continue, you agree to receive recurring texts from Curex for account and care updates. Msg frequency varies. Msg &amp; data rates may apply. STOP to opt out, HELP for help. <a href="https://getcurex.com/terms" target="_blank" style="color:var(--muted);text-decoration:underline;">Terms of Service</a>, <a href="https://getcurex.com/privacy" target="_blank" style="color:var(--muted);text-decoration:underline;">Privacy Policy</a>.</div>
         </div>
 
         <button class="quiz-continue-btn" id="s12ContinueBtn" onclick="s12SaveAndContinue()">
@@ -2450,7 +2787,7 @@ body::before {
       <!-- Hero -->
       <div class="s13-hero">
         <div class="s13-inner" style="padding:0;">
-          <div class="s13-hero-badge"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> GLP-1 Plan Ready</div>
+          <div class="s13-hero-badge" style="background:#DCFCE7;color:#15803D;border:1px solid #BBF7D0;"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#15803D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> GLP-1 Plan Ready</div>
           <div class="s13-hero-title"><span class="s13-name-grad" id="s13Name">You're</span> in.<br>Your plan is ready.</div>
           <div class="s13-hero-sub">Clinician-matched GLP-1 — personalized to your body and goals.</div>
           <div class="s13-compare">
@@ -2476,8 +2813,7 @@ body::before {
         </div>
       </div>
 
-      <!-- Scroll CTA below table -->
-      <div class="s13-inner" style="padding: 14px 24px 0;">
+      <div class="s13-inner" style="padding: 14px 24px 14px;">
         <button class="s13-scroll-btn" onclick="document.getElementById('s13MedSection').scrollIntoView({behavior:'smooth'})">
           Select Your Medication →
         </button>
@@ -2502,65 +2838,10 @@ body::before {
         </div>
       </div>
 
-      <!-- Choose medication -->
-      <div class="s13-section" id="s13MedSection">
-        <div class="s13-inner" style="padding:0;">
-          <div class="s13-section-title">Choose your medication.</div>
-          <div class="s13-section-sub">Both are compounded GLP-1s prescribed by a licensed clinician.</div>
-
-          <div class="s13-cards-outer" id="s13CardsOuter">
-            <div class="s13-cards-grid" id="s13CardsGrid">
-
-              <!-- Semaglutide -->
-              <div class="s13-med-v2" id="s13SemCard" onclick="s13SelectMed('sem')">
-                <div class="s13-med-img s13-med-img-sem">
-                  💉
-                  <div class="s13-med-img-badge">In Stock</div>
-                </div>
-                <div class="s13-med-body">
-                  <div class="s13-med-v2-badge aff">Most Affordable</div>
-                  <div class="s13-med-v2-name">Semaglutide</div>
-                  <div class="s13-med-stars">★★★★½</div>
-                  <div class="s13-med-count">4.7 · 50,000+ members</div>
-                  <div class="s13-med-desc">Once-weekly GLP-1 injection that reduces appetite and cravings to support steady, sustainable weight loss.</div>
-                  <div class="s13-med-from-label">Prescribed from only</div>
-                  <div class="s13-med-price">$199<span>/mo</span></div>
-                  <button class="s13-med-select-btn">See Plans →</button>
-                </div>
-              </div>
-
-              <!-- Tirzepatide -->
-              <div class="s13-med-v2" id="s13TirCard" onclick="s13SelectMed('tir')">
-                <div class="s13-med-img s13-med-img-tir">
-                  ⚡
-                  <div class="s13-med-img-badge">In Stock</div>
-                </div>
-                <div class="s13-med-body">
-                  <div class="s13-med-v2-badge adv">Most Advanced</div>
-                  <div class="s13-med-v2-name">Tirzepatide</div>
-                  <div class="s13-med-stars">★★★★½</div>
-                  <div class="s13-med-count">4.7 · 50,000+ members</div>
-                  <div class="s13-med-desc">Dual-action GLP-1 + GIP weekly injection — clinically shown to produce greater weight loss than semaglutide alone.</div>
-                  <div class="s13-med-from-label">Prescribed from only</div>
-                  <div class="s13-med-price">$299<span>/mo</span></div>
-                  <button class="s13-med-select-btn">See Plans →</button>
-                </div>
-              </div>
-
-            </div><!-- /cards-grid -->
-
-            <!-- Pricing panel slides in from right -->
-            <div class="s13-pricing-panel" id="s13PricingPanel">
-              <button class="s13-panel-back" onclick="s13ClearMed()">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Back
-              </button>
-              <div class="s13-panel-med-name" id="s13PanelMedName"></div>
-              <div id="s13PanelTiers"></div>
-            </div>
-
-          </div><!-- /cards-outer -->
-        </div>
+      <div class="s13-inner" style="padding: 14px 24px 14px;">
+        <button class="s13-scroll-btn" onclick="document.getElementById('s13MedSection').scrollIntoView({behavior:'smooth'})">
+          Select Your Medication →
+        </button>
       </div>
 
       <!-- Free Benefits (blue card top) -->
@@ -2571,28 +2852,72 @@ body::before {
               <div class="s13-benefits-title">Your all-inclusive plan includes these upgraded benefits:</div>
               <div class="s13-benefits-icon">🎁</div>
             </div>
-            <div class="s13-benefit-row"><div class="s13-benefit-icon">👨‍⚕️</div><div class="s13-benefit-text">Unlimited video calls with licensed clinicians</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$129</span><span class="s13-benefit-free">FREE</span></div></div>
-            <div class="s13-benefit-row"><div class="s13-benefit-icon">📞</div><div class="s13-benefit-text">Always-on medical support via phone &amp; chat</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$89</span><span class="s13-benefit-free">FREE</span></div></div>
+            <div class="s13-benefit-row"><div class="s13-benefit-icon">🔒</div><div class="s13-benefit-text">Price Lock<div style="font-size:11px;color:#64748B;margin-top:2px;">The price of your prescription never increases</div></div><div class="s13-benefit-price"><span class="s13-benefit-orig">$99</span><span class="s13-benefit-free">FREE</span></div></div>
+            <div class="s13-benefit-row"><div class="s13-benefit-icon">🏆</div><div class="s13-benefit-text">Weight Loss Guarantee<div style="font-size:11px;color:#64748B;margin-top:2px;">Results or your money back</div></div><div class="s13-benefit-price"><span class="s13-benefit-orig">$179</span><span class="s13-benefit-free">FREE</span></div></div>
+            <div class="s13-benefit-row"><div class="s13-benefit-icon">🎫</div><div class="s13-benefit-text">Membership Fee Waived</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$199</span><span class="s13-benefit-free">FREE</span></div></div>
+            <div class="s13-benefit-row"><div class="s13-benefit-icon">👨‍⚕️</div><div class="s13-benefit-text">Unlimited Provider Consults</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$129</span><span class="s13-benefit-free">FREE</span></div></div>
             <div class="s13-benefit-row"><div class="s13-benefit-icon">🚚</div><div class="s13-benefit-text">Free 2-day delivery on every refill</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$49</span><span class="s13-benefit-free">FREE</span></div></div>
-            <div class="s13-benefit-row"><div class="s13-benefit-icon">💊</div><div class="s13-benefit-text">Dose adjustments &amp; on-time refills guaranteed</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$49</span><span class="s13-benefit-free">FREE</span></div></div>
-            <div class="s13-benefit-row"><div class="s13-benefit-icon">👥</div><div class="s13-benefit-text">Access to the Curex member community</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$29</span><span class="s13-benefit-free">FREE</span></div></div>
-            <div class="s13-benefit-row"><div class="s13-benefit-icon">🛡️</div><div class="s13-benefit-text">Weight loss guarantee — results or money back</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$179</span><span class="s13-benefit-free">FREE</span></div></div>
+            <div class="s13-benefit-row"><div class="s13-benefit-icon">📞</div><div class="s13-benefit-text">Always-on medical support via phone &amp; chat</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$89</span><span class="s13-benefit-free">FREE</span></div></div>
+            <div class="s13-benefit-row" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-radius:12px;padding:12px 14px;margin:4px 0;border-bottom:none;">
+              <div class="s13-benefit-text" style="font-weight:800;color:#15803D;font-size:14px;">Total saved if you sign up today &amp; claim your summer offer</div>
+              <div class="s13-benefit-price"><span style="font-size:18px;font-weight:900;color:#15803D;">$744</span></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- What's included (grey card below) -->
-      <div class="s13-section" style="padding-top:0; padding-bottom:28px;">
+      <div class="s13-inner" style="padding: 14px 24px 14px;">
+        <button class="s13-scroll-btn" onclick="document.getElementById('s13MedSection').scrollIntoView({behavior:'smooth'})">
+          Select Your Medication →
+        </button>
+      </div>
+
+      <!-- Choose medication -->
+      <div class="s13-section" id="s13MedSection">
         <div class="s13-inner" style="padding:0;">
-          <div class="s13-includes">
-            <div class="s13-includes-title">What's in your prescription plan.</div>
-            <div class="s13-include-item"><div class="s13-include-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>GLP-1 prescription from a licensed clinician</div>
-            <div class="s13-include-item"><div class="s13-include-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Clinician support &amp; dose adjustments included</div>
-            <div class="s13-include-item"><div class="s13-include-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Free 2-day delivery every month</div>
-            <div class="s13-include-item"><div class="s13-include-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Results guarantee — or your money back</div>
-            <div class="s13-include-item"><div class="s13-include-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Cancel anytime, no hidden fees</div>
-            <div class="s13-include-item"><div class="s13-include-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Price lock — we never charge more as your dose increases</div>
-          </div>
+          <div class="s13-section-title">Choose your medication.</div>
+          <div class="s13-section-sub">Our Compounded GLP-1s are prescribed by licensed clinicians.</div>
+
+          <div class="s13-cards-outer" id="s13CardsOuter">
+            <div class="s13-cards-grid" id="s13CardsGrid">
+
+              <!-- Tirzepatide (LEFT) -->
+              <div class="s13-med-v2" id="s13TirCard">
+                <div class="s13-med-img s13-med-img-tir">
+                  ⚡
+                  <div class="s13-med-img-badge">In Stock</div>
+                </div>
+                <div class="s13-med-body">
+                  <div class="s13-med-v2-badge adv">Most Popular</div>
+                  <div class="s13-med-v2-name">Tirzepatide</div>
+                  <div class="s13-med-stars">★★★★½</div>
+                  <div class="s13-med-count">4.7 · 50,000+ members</div>
+                  <div class="s13-med-desc">Dual-action GLP-1 + GIP weekly injection — clinically shown to produce greater weight loss than semaglutide alone.</div>
+                  <div class="s13-med-from-label">Starts From</div>
+                  <div class="s13-med-price">$299<span>/mo</span></div>
+                  <button class="s13-med-select-btn" onclick="event.stopPropagation();quiz.selectedMed='tir';saveQuiz();goToStep(14);">See Plans →</button>
+                </div>
+              </div>
+
+              <!-- Semaglutide (RIGHT) -->
+              <div class="s13-med-v2" id="s13SemCard">
+                <div class="s13-med-img s13-med-img-sem">
+                  💉
+                  <div class="s13-med-img-badge">In Stock</div>
+                </div>
+                <div class="s13-med-body">
+                  <div class="s13-med-v2-badge aff">Most Affordable</div>
+                  <div class="s13-med-v2-name">Semaglutide</div>
+                  <div class="s13-med-stars">★★★★½</div>
+                  <div class="s13-med-count">4.7 · 50,000+ members</div>
+                  <div class="s13-med-desc">Once-weekly GLP-1 injection that reduces appetite and cravings to support steady, sustainable weight loss.</div>
+                  <div class="s13-med-from-label">Starts From</div>
+                  <div class="s13-med-price">$199<span>/mo</span></div>
+                  <button class="s13-med-select-btn" onclick="event.stopPropagation();quiz.selectedMed='sem';saveQuiz();goToStep(14);">See Plans →</button>
+                </div>
+              </div>
+
+            </div><!-- /cards-grid --></div><!-- /cards-outer -->
         </div>
       </div>
 
@@ -2609,14 +2934,196 @@ body::before {
 <div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Can I pay with an FSA or HSA?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Yes! You can pay with your HSA or FSA card.</div></div>
 <div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Can you prescribe Ozempic®, Wegovy®, Zepbound® or Monjaro®?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Our providers focus on personalized medications and dosages that aren't commercially available at your local pharmacy. We don't prescribe Ozempic®, Wegovy®, Zepbound®, or Mounjaro®. We may prescribe treatments containing compounded semaglutide or tirzepatide. These medications are specially compounded for you by a licensed pharmacy to meet your specific needs.</div></div>
 <div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Are video visits with a provider required?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Our providers will review your information 100% online. Depending on where you live and the specifics of your medical history, our providers may require you to have a video visit or asynchronous visit via text message. If prescribed, you'll get unlimited online access to message your provider as needed for follow-ups, adjustments, and answers to your questions.</div></div>
-<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">What states do you serve?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Currently, we do not serve Alaska, Arkansas, Connecticut, Hawaii, Massachusetts, New Mexico and Missouri. However, we are always working to expand our reach, so stay in touch with us at hello@curex.org.</div></div>
+<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">What states do you serve?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Curex is proud to serve all 50 states. Please note that in California, we are only able to prescribe tablet formulations — injectable GLP-1s are not available in that state at this time.</div></div>
         </div>
       </div>
 
       <p class="s13-disclaimer">Curex offers compounded GLP-1s exclusively from U.S. licensed pharmacies. Compounded medications are not FDA-approved. GLP-1 medications carry risks including thyroid tumors. Consult your clinician. Individual results vary.</p>
 
+
+
     </div>
   </div><!-- /step13 -->
+
+
+<!-- ══ STEP 14: PLANS ══ -->
+  <div class="quiz-step" id="quizStep14">
+    <div>
+
+      <!-- Hero -->
+      <div class="s14-hero">
+        <div class="s14-inner" style="padding:0;">
+          <div class="s14-badge">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#15803D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Plan Ready
+          </div>
+          <div class="s14-title">Select your preferred <span class="s14-title-grad" id="s14MedName">GLP-1</span> form factor.</div>
+          <p class="s14-sub">We offer both injections and tablets in your location. Same clinician-prescribed formula — choose the format that fits your lifestyle.</p>
+
+          <!-- Form factor cards -->
+          <div class="s14-ff-grid">
+            <div class="s14-ff-card" id="s14InjCard" onclick="s14SelectFF('inj')">
+              <div class="s14-ff-img s14-ff-img-inj">💉</div>
+              <div class="s14-ff-label">Injection<div class="s14-ff-sub">Once weekly</div></div>
+              <div class="s14-ff-sel">Selected ✓</div>
+            </div>
+            <div class="s14-ff-card" id="s14TabCard" onclick="s14SelectFF('tab')">
+              <div class="s14-ff-img s14-ff-img-tab">💊</div>
+              <div class="s14-ff-label">Tablet<div class="s14-ff-sub">Daily oral</div></div>
+              <div class="s14-ff-sel">Selected ✓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonials -->
+      <div class="s14-testimonials">
+        <div class="s14-testi-label">What our members say</div>
+        <div class="s14-testi-slide">
+          <div class="s14-testi-card">
+            <div class="s14-testi-top">
+              <div class="s14-testi-img-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="7" r="4" fill="#C4B5FD"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#C4B5FD" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <div class="s14-testi-name">Sarah M.</div>
+                <div class="s14-testi-meta">Lost 22 lbs · Semaglutide Injection</div>
+                <div class="s14-testi-stars">★★★★★</div>
+              </div>
+            </div>
+            <div class="s14-testi-text">"I lost 22 lbs in my first 3 months. The clinicians are incredibly responsive and the weekly injection was so easy to get used to. I wish I had started sooner."</div>
+          </div>
+        </div>
+        <div class="s14-testi-slide">
+          <div class="s14-testi-card">
+            <div class="s14-testi-top">
+              <div class="s14-testi-img-placeholder" style="background:#DCFCE7;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="7" r="4" fill="#86EFAC"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#86EFAC" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <div class="s14-testi-name">James R.</div>
+                <div class="s14-testi-meta">Lost 18 lbs · Tirzepatide Tablet</div>
+                <div class="s14-testi-stars">★★★★★</div>
+              </div>
+            </div>
+            <div class="s14-testi-text">"The tablet was a game changer for me. No needles, just a small pill every morning. Down 18 lbs in 10 weeks and I barely think about cravings anymore."</div>
+          </div>
+        </div>
+        <div class="s14-testi-slide">
+          <div class="s14-testi-card">
+            <div class="s14-testi-top">
+              <div class="s14-testi-img-placeholder" style="background:#FEF9C3;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="7" r="4" fill="#FCD34D"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#FCD34D" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <div class="s14-testi-name">Michelle K.</div>
+                <div class="s14-testi-meta">Lost 31 lbs · Tirzepatide Injection</div>
+                <div class="s14-testi-stars">★★★★★</div>
+              </div>
+            </div>
+            <div class="s14-testi-text">"31 lbs down in 5 months. The provider check-ins kept me accountable and delivery is always on time. Best health decision I've ever made."</div>
+          </div>
+        </div>
+        <div class="s14-testi-dots">
+          <div class="s14-testi-dot active" onclick="s14GoSlide(0)"></div>
+          <div class="s14-testi-dot" onclick="s14GoSlide(1)"></div>
+          <div class="s14-testi-dot" onclick="s14GoSlide(2)"></div>
+        </div>
+      </div>
+
+      <!-- Pricing -->
+      <div class="s14-pricing" id="s14Pricing">
+        <div class="s14-pricing-title" id="s14PricingTitle">Choose your plan.</div>
+        <p class="s14-pricing-sub">Longer plans save more — all include free shipping and clinician support.</p>
+
+        <div class="s14-pricing-grid">
+          <div class="s14-plan-row best" id="s14row12">
+            <div class="s14-plan-best-badge">🏆 Best Value</div>
+            <div class="s14-plan-top">
+              <div class="s14-plan-dur">12 Month Supply</div>
+              <div class="s14-plan-price" id="s14p12">—<span>/mo</span></div>
+            </div>
+            <div class="s14-plan-badges">
+              <span class="s14-plan-save" id="s14s12" style="margin:0;"></span>
+              <span class="s14-badge-blue">✦ Upgraded Benefits</span>
+            </div>
+            <button class="s14-plan-btn" onclick="s14BuyNow('12mo')">Purchase</button>
+          </div>
+
+          <div class="s14-plan-row" id="s14row6">
+            <div class="s14-plan-top">
+              <div class="s14-plan-dur">6 Month Supply</div>
+              <div class="s14-plan-price" id="s14p6">—<span>/mo</span></div>
+            </div>
+            <div class="s14-plan-badges">
+              <span class="s14-plan-save" id="s14s6" style="margin:0;"></span>
+              <span class="s14-badge-blue">✦ Upgraded Benefits</span>
+            </div>
+            <button class="s14-plan-btn" onclick="s14BuyNow('6mo')">Purchase</button>
+          </div>
+
+          <div class="s14-plan-row" id="s14row3">
+            <div class="s14-plan-top">
+              <div class="s14-plan-dur">3 Month Supply</div>
+              <div class="s14-plan-price" id="s14p3">—<span>/mo</span></div>
+            </div>
+            <div class="s14-plan-badges">
+              <span class="s14-plan-save" id="s14s3" style="margin:0;"></span>
+              <span class="s14-badge-blue">✦ Upgraded Benefits</span>
+            </div>
+            <button class="s14-plan-btn" onclick="s14BuyNow('3mo')">Purchase</button>
+          </div>
+
+          <div class="s14-plan-row" id="s14row1">
+            <div class="s14-plan-top">
+              <div class="s14-plan-dur">1 Month Supply</div>
+              <div class="s14-plan-price" id="s14p1">—<span>/mo</span></div>
+            </div>
+            <div class="s14-plan-badges">
+              <span class="s14-badge-green">✦ Upgraded Benefits</span>
+            </div>
+            <button class="s14-plan-btn" onclick="s14BuyNow('1mo')">Purchase</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benefits (blue card) -->
+      <div class="s14-benefits-wrap">
+        <div class="s13-benefits-card">
+          <div class="s13-benefits-header">
+            <div class="s13-benefits-title">Your all-inclusive plan includes these upgraded benefits:</div>
+            <div class="s13-benefits-icon">🎁</div>
+          </div>
+          <div class="s13-benefit-row"><div class="s13-benefit-icon">🔒</div><div class="s13-benefit-text">Price Lock<div style="font-size:11px;color:#64748B;margin-top:2px;">The price of your prescription never increases</div></div><div class="s13-benefit-price"><span class="s13-benefit-orig">$99</span><span class="s13-benefit-free">FREE</span></div></div>
+          <div class="s13-benefit-row"><div class="s13-benefit-icon">🏆</div><div class="s13-benefit-text">Weight Loss Guarantee<div style="font-size:11px;color:#64748B;margin-top:2px;">Results or your money back</div></div><div class="s13-benefit-price"><span class="s13-benefit-orig">$179</span><span class="s13-benefit-free">FREE</span></div></div>
+          <div class="s13-benefit-row"><div class="s13-benefit-icon">🎫</div><div class="s13-benefit-text">Membership Fee Waived</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$199</span><span class="s13-benefit-free">FREE</span></div></div>
+          <div class="s13-benefit-row"><div class="s13-benefit-icon">👨‍⚕️</div><div class="s13-benefit-text">Unlimited Provider Consults</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$129</span><span class="s13-benefit-free">FREE</span></div></div>
+          <div class="s13-benefit-row"><div class="s13-benefit-icon">🚚</div><div class="s13-benefit-text">Free 2-day delivery on every refill</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$49</span><span class="s13-benefit-free">FREE</span></div></div>
+          <div class="s13-benefit-row"><div class="s13-benefit-icon">📞</div><div class="s13-benefit-text">Always-on medical support via phone &amp; chat</div><div class="s13-benefit-price"><span class="s13-benefit-orig">$89</span><span class="s13-benefit-free">FREE</span></div></div>
+          <div class="s13-benefit-row" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-radius:12px;padding:12px 14px;margin:4px 0;border-bottom:none;">
+            <div class="s13-benefit-text" style="font-weight:800;color:#15803D;font-size:14px;">Total saved if you sign up today &amp; claim your summer offer</div>
+            <div class="s13-benefit-price"><span style="font-size:18px;font-weight:900;color:#15803D;">$744</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="s14-faq-wrap">
+        <div class="s13-faq-title">Frequently asked questions.</div>
+          <div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Do your plans include prescriptions and medications?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Curex plans cover everything from reviewing your medical intake to providing prescription medications, with free shipping included. There are no extra or hidden charges. Prescriptions are issued only after a medical provider reviews your information to confirm that the medication is suitable for you. Our service includes continuous support and regular follow-ups to ensure your treatment stays on track. Our clinicians may order labs and additional medications for you, which would not be covered by the plan but for which you can use your insurance. Please note: Compounded medications are tailored to individual needs or used in case of shortages, but they are not FDA-approved for safety or effectiveness. A prescription is required. Results may vary from person to person.</div></div>
+<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">What medications do your providers prescribe?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">We prioritize a personalized approach to your health. If your medical provider prescribes medication, options may include GLP-1 treatments such as compounded semaglutide or tirzepatide. Our providers prescribe only combination treatments not available at your local pharmacy that may include vitamin B12, etc. to help you achieve your goals faster. Depending on your treatment goals, other medications such as metformin may also be considered. We recognize the importance of managing side effects, so your care plan might include medication to ease symptoms like nausea. Your well-being is always our top priority! Please note that compounded medications are customized to meet individual patient needs and are not FDA-approved for safety or effectiveness. A prescription is necessary. Results may vary from person to person. Curex and its pharmacy partners do not have any association with Novo Nordisk or Eli Lilly.</div></div>
+<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Will I be prescribed semaglutide or tirzepatide if I sign up?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Your health journey is unique, and we tailor our care to match. Any prescriptions, including compounded semaglutide or compounded tirzepatide, will be based on the expert assessment of the medical provider matched with you through our platform. You can trust that your treatment plan will be personalized to fit your specific needs. And if compounded semaglutide or compounded tirzepatide are not prescribed, we will provide a full refund.</div></div>
+<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">What is compounded medication?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Compounding involves creating customized medications to meet the specific needs of individual patients. For instance, a patient may require a liquid version of a medication that is only available in tablet form. Pharmacies can also compound medications using FDA-approved drugs that are on the FDA's shortage list. These compounded medications are made by state-licensed pharmacies that follow both federal and state regulations, including quality standards. However, when compounded in accordance with these laws, these medications are not subject to FDA approval and are not evaluated for safety or effectiveness.</div></div>
+<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Is compounded medication the same as generic medication?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Compounded medications differ from generic drugs. Generics require FDA approval by demonstrating bio-equivalence to the brand-name drug. In contrast, compounded medications are not FDA-approved. They are made based on a personalized prescription that may not be commercially available elsewhere or when a drug appears on the FDA's shortage list. Compounding pharmacies must have the proper licensed facilities and comply with state and federal regulations before dispensing these medications.</div></div>
+<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Is insurance required?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">No, Curex doesn't require insurance. We offer clear and simple pricing, along with affordable medication options, making it easy and accessible to take care of your health.</div></div>
+<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Can I pay with an FSA or HSA?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Yes! You can pay with your HSA or FSA card.</div></div>
+<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Can you prescribe Ozempic®, Wegovy®, Zepbound® or Monjaro®?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Our providers focus on personalized medications and dosages that aren't commercially available at your local pharmacy. We don't prescribe Ozempic®, Wegovy®, Zepbound®, or Mounjaro®. We may prescribe treatments containing compounded semaglutide or tirzepatide. These medications are specially compounded for you by a licensed pharmacy to meet your specific needs.</div></div>
+<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Are video visits with a provider required?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Our providers will review your information 100% online. Depending on where you live and the specifics of your medical history, our providers may require you to have a video visit or asynchronous visit via text message. If prescribed, you'll get unlimited online access to message your provider as needed for follow-ups, adjustments, and answers to your questions.</div></div>
+<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">What states do you serve?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Curex is proud to serve all 50 states. Please note that in California, we are only able to prescribe tablet formulations — injectable GLP-1s are not available in that state at this time.</div></div>
+        </div>
+      </div>
+      </div>
+  </div><!-- /step14 -->
 
 </div><!-- /quiz-page -->
 
@@ -3107,15 +3614,94 @@ function s4Continue() {
 }
 
 
-// ─── STEP 5 ───
-function s5Select(el) {
+// ─── STEP 5: PRIOR MEDS ───
+let s5SelectedMeds = [];
+let s5Choice = null;
+
+function s5Select(el, type) {
   document.querySelectorAll('.s5-option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
-  quiz.priorMeds = el.querySelector('.s5-option-title').textContent.trim();
+  s5Choice = type;
+  quiz.priorMeds = type;
   saveQuiz();
-  setTimeout(() => goToStep(6), 200);
+  const dropdown = document.getElementById('s5MedDropdown');
+  const btn = document.getElementById('s5ContinueBtn');
+  if (type === 'no') {
+    dropdown.classList.remove('open');
+    s5SelectedMeds = [];
+    btn.style.display = 'none';
+    setTimeout(() => goToStep(6), 280);
+  } else {
+    dropdown.classList.add('open');
+    btn.style.display = 'block';
+    btn.classList.add('visible');
+  }
 }
 
+function s5ToggleMed(el, med) {
+  el.classList.toggle('selected');
+  if (el.classList.contains('selected')) {
+    if (!s5SelectedMeds.includes(med)) s5SelectedMeds.push(med);
+  } else {
+    s5SelectedMeds = s5SelectedMeds.filter(m => m !== med);
+  }
+  quiz.priorMedsList = s5SelectedMeds;
+  saveQuiz();
+}
+
+function s5Continue() {
+  quiz.priorMeds = s5Choice;
+  quiz.priorMedsList = s5SelectedMeds;
+  saveQuiz();
+  goToStep(6);
+}
+
+
+const US_STATES = ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
+
+function s6StateFilter(val) {
+  const dd = document.getElementById('s6StateDropdown');
+  const input = document.getElementById('s6StateInput');
+  document.getElementById('s6StateError').style.display = 'none';
+  if (!val.trim()) { dd.classList.remove('open'); dd.innerHTML = ''; s6OnChange(); return; }
+  const q = val.toLowerCase();
+  const matches = US_STATES.filter(s => s.toLowerCase().startsWith(q));
+  if (!matches.length) { dd.classList.remove('open'); s6OnChange(); return; }
+  // Position dropdown relative to input
+  const rect = input.getBoundingClientRect();
+  dd.style.position = 'fixed';
+  dd.style.top = (rect.bottom + 4) + 'px';
+  dd.style.left = rect.left + 'px';
+  dd.style.width = rect.width + 'px';
+  dd.innerHTML = matches.slice(0,8).map(s => '<div class="s6-state-option" onmousedown="s6SelectState(\'' + s + '\')">' + s + '</div>').join('');
+  dd.classList.add('open');
+  s6OnChange();
+}
+
+function s6SelectState(state) {
+  document.getElementById('s6StateInput').value = state;
+  quiz.state = state; saveQuiz();
+  const dd = document.getElementById('s6StateDropdown');
+  dd.classList.remove('open'); dd.innerHTML = '';
+  document.getElementById('s6StateError').style.display = 'none';
+  s6OnChange();
+}
+
+function s6StateBlur() {
+  const val = (document.getElementById('s6StateInput').value || '').trim();
+  document.getElementById('s6StateDropdown').classList.remove('open');
+  if (!val) return;
+  const exact = US_STATES.find(s => s.toLowerCase() === val.toLowerCase());
+  if (exact) {
+    document.getElementById('s6StateInput').value = exact;
+    quiz.state = exact; saveQuiz();
+    document.getElementById('s6StateError').style.display = 'none';
+  } else {
+    document.getElementById('s6StateError').style.display = 'block';
+    quiz.state = ''; saveQuiz();
+  }
+  s6OnChange();
+}
 
 // ─── STEP 6 ───
 let s6Sex = '';
@@ -3183,7 +3769,7 @@ function s6DobValid() {
 }
 
 function s6OnChange() {
-  const state = document.getElementById('s6State').value;
+  const state = quiz.state || '';
   const btn = document.getElementById('s6ContinueBtn');
   if (s6Sex && s6DobValid() && state) {
     btn.classList.add('visible');
@@ -3197,7 +3783,7 @@ function s6SaveAndContinue() {
   const parts = dobEl.value.replace(/\s/g,'').split('/');
   quiz.sex   = s6Sex;
   quiz.dob   = dobEl.value.trim();
-  quiz.state = document.getElementById('s6State').value;
+  // quiz.state already set via s6SelectState
   const yyyy = parseInt(parts[2]);
   const today = new Date();
   let age = today.getFullYear() - yyyy;
@@ -3209,7 +3795,7 @@ function s6SaveAndContinue() {
 // Restore step 6
 if (quiz.sex) s6SetSex(quiz.sex);
 if (quiz.dob) { document.getElementById('s6Dob').value = quiz.dob; s6OnChange(); }
-if (quiz.state) { document.getElementById('s6State').value = quiz.state; s6OnChange(); }
+if (quiz.state) { const _s6in = document.getElementById('s6StateInput'); if (_s6in && quiz.state) { _s6in.value = quiz.state; } s6OnChange(); }
 
 
 // ─── STEP 7 ───
@@ -3218,10 +3804,7 @@ function s7Render() {
   const el = document.getElementById('s7StateName');
   if (el) el.textContent = state || 'your state';
 
-  const meds = state === 'California' ? [
-    { icon: '💉', name: 'Semaglutide<br>Injection' },
-    { icon: '💊', name: 'Semaglutide<br>Tablet' },
-  ] : [
+  const meds = [
     { icon: '💉', name: 'Semaglutide<br>Injection' },
     { icon: '💉', name: 'Tirzepatide<br>Injection' },
     { icon: '💊', name: 'Semaglutide<br>Tablet' },
@@ -3337,7 +3920,8 @@ function s11Render() {
   if (bmi > 0) {
     if (bmi >= 30)      { cat = 'Eligible';              catClass = 's11-eligible'; }
     else if (bmi >= 25) { cat = 'Overweight — Eligible'; catClass = 's11-eligible'; }
-    else                { cat = 'Borderline eligible';   catClass = ''; }
+    else if (bmi >= 22) { cat = 'Borderline eligible';   catClass = ''; }
+    else                { cat = 'Not Eligible';            catClass = 's11-ineligible-cat'; }
   }
   const catEl = document.getElementById('s11BmiCat');
   catEl.textContent = cat; catEl.className = 's11-row-val ' + catClass;
@@ -3351,12 +3935,37 @@ function s11Render() {
   }
 
   // Success probability — higher BMI = stronger GLP-1 candidate
-  let prob = '88%';
-  if (bmi >= 40)       prob = '95%';
-  else if (bmi >= 35)  prob = '92%';
-  else if (bmi >= 30)  prob = '89%';
-  else if (bmi >= 25)  prob = '85%';
+  let prob = '91%';
+  if (bmi >= 40)       prob = '97%';
+  else if (bmi >= 35)  prob = '95%';
+  else if (bmi >= 30)  prob = '93%';
+  else if (bmi >= 25)  prob = '91%';
+  else                 prob = '89%';
   document.getElementById('s11SuccessProb').textContent = prob;
+  // ── Eligibility check ──
+  const ci1 = Array.isArray(quiz.contraindications1) ? quiz.contraindications1 : [];
+  const ci2 = Array.isArray(quiz.contraindications2) ? quiz.contraindications2 : [];
+  const hasCi = ci1.some(x => !x.toLowerCase().includes('none')) || ci2.some(x => !x.toLowerCase().includes('none'));
+  const lowBmi = bmi > 0 && bmi < 22;
+  const ineligible = hasCi || lowBmi;
+  const badge = document.getElementById('s11StatusBadge');
+  const contBtn = document.getElementById('s11ContinueBtn');
+  const msg = document.getElementById('s11IneligibleMsg');
+  const preWeight = document.getElementById('s11PreWeightSection');
+  const contactBtn = document.getElementById('s11ContactBtn');
+  if (ineligible) {
+    if (badge) { badge.className = 's11-status-badge-ineligible'; badge.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#DC2626" stroke-width="2.2" stroke-linecap="round"/></svg> Status: Ineligible'; }
+    if (contBtn) contBtn.style.display = 'none';
+    if (contactBtn) contactBtn.style.display = 'block';
+    if (msg) msg.style.display = 'block';
+    if (preWeight) preWeight.style.display = 'none';
+  } else {
+    if (badge) { badge.className = 's11-status-badge'; badge.innerHTML = '<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#15803D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Status: Clinical Match'; }
+    if (contBtn) contBtn.style.display = '';
+    if (contactBtn) contactBtn.style.display = 'none';
+    if (msg) msg.style.display = 'none';
+    if (preWeight) preWeight.style.display = '';
+  }
 }
 
 // Patch goToStep for step 11
@@ -3510,18 +4119,10 @@ function s13SelectMed(type) {
     '</div>'
   ).join('');
 
-  // Sema (left card) → panel slides from RIGHT
-  // Tir (right card)  → panel slides from LEFT
+  // Show panel instantly — no slide animation
   const panel = document.getElementById('s13PricingPanel');
-  // Step 1: remove everything, position without transition
-  panel.classList.remove('panel-right','panel-left','visible','animating');
-  void panel.offsetWidth;
-  if (type === 'sem') { panel.classList.add('panel-right'); }
-  else                { panel.classList.add('panel-left'); }
-  // Step 2: reflow to lock in start position, then enable transition + animate
-  void panel.offsetWidth;
-  panel.classList.add('animating');
-  requestAnimationFrame(() => panel.classList.add('visible'));
+  panel.classList.remove('panel-right','panel-left','animating');
+  panel.classList.add('visible');
 }
 
 function s13ClearMed() {
@@ -3557,7 +4158,165 @@ function s13Faq(el) { el.parentElement.classList.toggle('open'); }
 const _s13GoTo = goToStep;
 goToStep = function(n, dir) { _s13GoTo(n, dir); if (n === 13) setTimeout(s13Render, 50); };
 
+
+// ── Announcement bar countdown ──
+(function() {
+  let secs = 10 * 60;
+  const el = document.getElementById('announceTimer');
+  if (!el) return;
+  const tick = () => {
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    el.textContent = m + ':' + String(s).padStart(2,'0');
+    if (secs > 0) { secs--; setTimeout(tick, 1000); }
+  };
+  tick();
+})();
+
+
+// ─── STEP 14: PLANS ───
+const s14Pricing = {
+  tir: {
+    '12mo': { price: 299, save: 'Save $1,200/yr vs monthly' },
+    '6mo':  { price: 349, save: 'Save $600/yr vs monthly' },
+    '3mo':  { price: 379, save: 'Save $240/yr vs monthly' },
+    '1mo':  { price: 399, save: null }
+  },
+  sem: {
+    '12mo': { price: 199, save: 'Save $1,200/yr vs monthly' },
+    '6mo':  { price: 249, save: 'Save $600/yr vs monthly' },
+    '3mo':  { price: 279, save: 'Save $240/yr vs monthly' },
+    '1mo':  { price: 299, save: null }
+  }
+};
+
+// Stripe links — replace '#' with real links when ready
+const s14StripeLinks = {
+  tir: { '12mo': '#', '6mo': '#', '3mo': '#', '1mo': '#' },
+  sem: { '12mo': '#', '6mo': '#', '3mo': '#', '1mo': '#' }
+};
+
+let s14FF = null;
+let s14SlideIdx = 0;
+let s14SlideTimer = null;
+
+function s14Render() {
+  const med = quiz.selectedMed || 'tir';
+  const medName = med === 'tir' ? 'Tirzepatide' : 'Semaglutide';
+  const el = document.getElementById('s14MedName');
+  if (el) el.textContent = medName;
+  // Reset form factor selection and recommended badges
+  s14FF = null;
+  document.getElementById('s14InjCard').classList.remove('active');
+  document.getElementById('s14TabCard').classList.remove('active');
+  const p = document.getElementById('s14Pricing');
+  if (p) { p.classList.remove('visible'); }
+  ['s14row12','s14row6','s14row3','s14row1'].forEach(id => {
+    const r = document.getElementById(id);
+    if (!r) return;
+    r.classList.remove('recommended');
+    const b = r.querySelector('.s14-recommended-badge');
+    if (b) b.remove();
+  });
+  // Start testimonial auto-advance
+  if (s14SlideTimer) clearInterval(s14SlideTimer);
+  // Reset all slides before activating first
+  document.querySelectorAll('.s14-testi-slide').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.s14-testi-dot').forEach(d => d.classList.remove('active'));
+  s14SlideIdx = 0;
+  s14GoSlide(0);
+  s14SlideTimer = setInterval(() => s14GoSlide((s14SlideIdx + 1) % 3), 4000);
+}
+
+function s14SelectFF(type) {
+  s14FF = type;
+  quiz.selectedFormFactor = type;
+  saveQuiz();
+  document.getElementById('s14InjCard').classList.toggle('active', type === 'inj');
+  document.getElementById('s14TabCard').classList.toggle('active', type === 'tab');
+  const med = quiz.selectedMed || 'tir';
+  const medName = med === 'tir' ? 'Tirzepatide' : 'Semaglutide';
+  const ffLabel = type === 'inj' ? 'Injection' : 'Tablet';
+  const data = s14Pricing[med];
+
+  // Determine recommended row based on pace
+  const pace = quiz.pace || '';
+  let recKey = '3mo';
+  if (pace.startsWith('12')) recKey = '12mo';
+  else if (pace.startsWith('6')) recKey = '6mo';
+  else if (pace.startsWith('3')) recKey = '3mo';
+
+  const tabExtra = type === 'tab' ? 10 : 0;
+  ['12mo','6mo','3mo','1mo'].forEach(k => {
+    const d = data[k];
+    const num = k.replace('mo','');
+    const priceEl = document.getElementById('s14p' + num);
+    if (priceEl) priceEl.innerHTML = '$' + (d.price + tabExtra) + '<span>/mo</span>';
+    const saveEl = document.getElementById('s14s' + num);
+    if (saveEl) { saveEl.textContent = d.save || ''; saveEl.style.display = d.save ? 'inline-block' : 'none'; }
+    // Apply/remove recommended badge
+    const row = document.getElementById('s14row' + num);
+    if (row) {
+      const existing = row.querySelector('.s14-recommended-badge');
+      if (existing) existing.remove();
+      row.classList.remove('recommended');
+      if (k === recKey) {
+        row.classList.add('recommended');
+        const badge = document.createElement('div');
+        badge.className = 's14-recommended-badge';
+        badge.textContent = '✓ Recommended';
+        row.insertBefore(badge, row.firstChild);
+      }
+    }
+  });
+
+  const titleEl = document.getElementById('s14PricingTitle');
+  if (titleEl) titleEl.textContent = medName + ' ' + ffLabel + ' Plans';
+  const pricingEl = document.getElementById('s14Pricing');
+  pricingEl.classList.add('visible');
+  setTimeout(() => pricingEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+}
+
+function s14BuyNow(duration) {
+  const med = quiz.selectedMed || 'tir';
+  quiz.selectedDuration = duration;
+  quiz.selectedFormFactor = s14FF;
+  const data = s14Pricing[med];
+  const surcharge = s14FF === 'tab' ? 10 : 0;
+  quiz.selectedPrice = data[duration].price + surcharge;
+  saveQuiz();
+  // Update DB row with plan selection
+  if (quiz.email) {
+    fetch('/api/submit', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({...quiz, _update: true})
+    }).catch(() => {});
+  }
+  const link = s14StripeLinks[med][duration];
+  if (link && link !== '#') window.location.href = link;
+}
+
+function s14GoSlide(n) {
+  const slides = document.querySelectorAll('.s14-testi-slide');
+  const dots = document.querySelectorAll('.s14-testi-dot');
+  if (!slides.length) return;
+  slides[s14SlideIdx].classList.remove('active');
+  dots[s14SlideIdx].classList.remove('active');
+  s14SlideIdx = n;
+  slides[s14SlideIdx].classList.add('active');
+  dots[s14SlideIdx].classList.add('active');
+}
+
+// Patch goToStep for step 14
+const _s14GoTo = goToStep;
+goToStep = function(n, dir) {
+  _s14GoTo(n, dir);
+  if (n === 14) setTimeout(s14Render, 50);
+};
+
 </script>
 
+<div class="s6-state-dropdown" id="s6StateDropdown" style="z-index:9999;"></div>
 </body>
 </html>
