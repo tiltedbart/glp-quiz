@@ -3417,13 +3417,23 @@ function s12OnChange() {
   document.getElementById('s12ContinueBtn').classList.toggle('visible', ok);
 }
 
-function s12SaveAndContinue() {
-  quiz.firstName = document.getElementById('s12FirstName').value.trim();
-  quiz.lastName  = document.getElementById('s12LastName').value.trim();
-  quiz.email     = document.getElementById('s12Email').value.trim();
-  quiz.phone     = document.getElementById('s12Phone').value.trim();
+async function s12SaveAndContinue() {
+  quiz.firstName  = document.getElementById('s12FirstName').value.trim();
+  quiz.lastName   = document.getElementById('s12LastName').value.trim();
+  quiz.email      = document.getElementById('s12Email').value.trim();
+  quiz.phone      = document.getElementById('s12Phone').value.trim();
   quiz.smsConsent = s12SmsChecked;
   saveQuiz();
+
+  // Fire-and-forget — submit quiz answers to DB
+  try {
+    fetch('/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(quiz)
+    });
+  } catch(e) { console.warn('Submit failed:', e); }
+
   goToStep(13);
 }
 
@@ -3523,12 +3533,23 @@ function s13ClearMed() {
   setTimeout(() => panel.classList.remove('panel-right','panel-left','animating'), 380);
 }
 
-function s13BuyNow(e, med, duration, price) {
+async function s13BuyNow(e, med, duration, price) {
   e.stopPropagation();
   quiz.selectedMed = med; quiz.selectedDuration = duration; quiz.selectedPrice = price;
   saveQuiz();
-  // TODO: wire to Stripe
-  alert('Starting checkout:\n' + (med === 'sem' ? 'Semaglutide' : 'Tirzepatide') + ' · ' + duration + ' · $' + price + '/mo\n\nStripe checkout will be wired here.');
+
+  // Update DB record with medication selection
+  try {
+    fetch('/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(quiz)
+    });
+  } catch(e) { console.warn('Submit failed:', e); }
+
+  // TODO: redirect to Stripe checkout
+  // window.location.href = '/api/stripe/checkout?med=' + med + '&duration=' + duration + '&price=' + price;
+  alert('Ready for Stripe!\n\n' + (med === 'sem' ? 'Semaglutide' : 'Tirzepatide') + ' · ' + duration + ' · $' + price + '/mo\n\nWire Stripe secret key to go live.');
 }
 
 function s13Faq(el) { el.parentElement.classList.toggle('open'); }
