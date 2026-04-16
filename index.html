@@ -2992,7 +2992,7 @@ html, body {
               <!-- Tirzepatide (LEFT) -->
               <div class="s13-med-v2" id="s13TirCard">
                 <div class="s13-med-img s13-med-img-tir">
-                  <img src="tirz-b.png" alt="Tirzepatide" style="width:100%;height:100%;object-fit:cover;">
+                  <img src="tirz-b.webp" alt="Tirzepatide" style="width:100%;height:100%;object-fit:cover;">
                   <div class="s13-med-img-badge">In Stock</div>
                 </div>
                 <div class="s13-med-body">
@@ -3010,7 +3010,7 @@ html, body {
               <!-- Semaglutide (RIGHT) -->
               <div class="s13-med-v2" id="s13SemCard">
                 <div class="s13-med-img s13-med-img-sem">
-                  <img src="sem-b.png" alt="Semaglutide" style="width:100%;height:100%;object-fit:cover;">
+                  <img src="sem-b.webp" alt="Semaglutide" style="width:100%;height:100%;object-fit:cover;">
                   <div class="s13-med-img-badge">In Stock</div>
                 </div>
                 <div class="s13-med-body">
@@ -3995,17 +3995,17 @@ function s7Render() {
 
   const isCA = state === 'California';
   const meds = [
-    { img: 'sem-i.png', name: 'Semaglutide<br>Injection', inj: true },
-    { img: 'tirz-i.png', name: 'Tirzepatide<br>Injection', inj: true },
-    { img: 'sem-t.png', name: 'Semaglutide<br>Tablet', inj: false },
-    { img: 'tirz-t.png', name: 'Tirzepatide<br>Tablet', inj: false },
+    { img: 'sem-i.webp', name: 'Semaglutide<br>Injection', inj: true },
+    { img: 'tirz-i.webp', name: 'Tirzepatide<br>Injection', inj: true },
+    { img: 'sem-t.webp', name: 'Semaglutide<br>Tablet', inj: false },
+    { img: 'tirz-t.webp', name: 'Tirzepatide<br>Tablet', inj: false },
   ];
 
   const container = document.getElementById('s7MedPills');
   if (container) container.innerHTML = meds.map(m => {
     const blocked = isCA && m.inj;
     return '<div class="s7-med-pill' + (blocked ? ' s7-med-pill-blocked' : '') + '">' +
-      '<div class="s7-med-icon"><img src="' + m.img + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"></div>' +
+      '<div class="s7-med-icon"><img src="' + m.img + '" alt="" style="width:125%;height:125%;object-fit:cover;border-radius:10px;margin:-12.5%;"></div>' +
       '<div class="s7-med-name">' + m.name + '</div>' +
       (blocked ? '<div class="s7-med-na">N/A</div>' : '') +
       '</div>';
@@ -4400,8 +4400,8 @@ function s14Render() {
   // Set form factor images based on selected med
   const injImg = document.getElementById('s14InjImg');
   const tabImg = document.getElementById('s14TabImg');
-  if (injImg) injImg.src = med === 'tir' ? 'tirz-i.png' : 'sem-i.png';
-  if (tabImg) tabImg.src = med === 'tir' ? 'tirz-t.png' : 'sem-t.png';
+  if (injImg) injImg.src = med === 'tir' ? 'tirz-i.webp' : 'sem-i.webp';
+  if (tabImg) tabImg.src = med === 'tir' ? 'tirz-t.webp' : 'sem-t.webp';
   // Reset form factor selection and recommended badges
   s14FF = null;
   const isCA14 = (quiz.state || '') === 'California';
