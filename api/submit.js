@@ -23,15 +23,15 @@ module.exports = async (req, res) => {
     const q = req.body;
     const db = getPool();
 
-    // If this is an update (plan selected on step 14), UPDATE existing row by email
+    // UPDATE — fires when user selects a plan on step 14
     if (q._update && q.email) {
       await db.query(
         `UPDATE quiz_submissions
-         SET selected_med = $1,
-             selected_form_factor = $2,
-             selected_duration = $3,
+         SET selected_med            = $1,
+             selected_form_factor    = $2,
+             selected_duration       = $3,
              selected_price_per_month = $4,
-             raw_quiz_data = $5
+             raw_quiz_data           = $5
          WHERE email = $6`,
         [
           q.selectedMed || null,
@@ -45,46 +45,62 @@ module.exports = async (req, res) => {
       return res.status(200).json({ success: true, updated: true });
     }
 
-    // Otherwise INSERT new submission (step 12 contact info)
+    // INSERT — fires on step 12 contact info submit
     const result = await db.query(
       `INSERT INTO quiz_submissions (
-        goal, height_ft, height_in, weight_lbs, target_weight_lbs, bmi,
-        pace, prior_meds, sex, dob, age, state,
-        contraindications_active, contraindications_history, compounding_preferences,
+        goal,
+        height_ft, height_in, weight_lbs, target_weight_lbs, bmi,
+        pace,
+        prior_meds, prior_meds_list, prior_meds_dosage, prior_meds_how_long,
+        sex, dob, age, state,
+        contraindications_active, contraindications_history,
+        compounding_preferences,
+        eligible,
         first_name, last_name, email, phone, sms_consent,
         selected_med, selected_form_factor, selected_duration, selected_price_per_month,
         raw_quiz_data
       ) VALUES (
-        $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,
-        $13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25
-      ) ON CONFLICT (email) DO UPDATE SET
+        $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,
+        $11,$12,$13,$14,$15,$16,$17,$18,$19,
+        $20,$21,$22,$23,$24,$25,$26,$27,$28,$29
+      )
+      ON CONFLICT (email) DO UPDATE SET
         raw_quiz_data = EXCLUDED.raw_quiz_data,
-        selected_med = COALESCE(EXCLUDED.selected_med, quiz_submissions.selected_med)
+        selected_med  = COALESCE(EXCLUDED.selected_med, quiz_submissions.selected_med)
       RETURNING id`,
       [
-        q.goal||null,
-        q.heightFt ? parseInt(q.heightFt) : null,
+        q.goal || null,
+        q.heightFt  ? parseInt(q.heightFt)  : null,
         q.heightIn !== undefined ? parseInt(q.heightIn) : null,
-        q.weight ? parseFloat(q.weight) : null,
+        q.weight     ? parseFloat(q.weight)     : null,
         q.targetWeight ? parseFloat(q.targetWeight) : null,
-        q.bmi ? parseFloat(q.bmi) : null,
-        q.pace||null, q.priorMeds||null,
-        q.sex||null, q.dob||null,
-        q.age ? parseInt(q.age) : null,
-        q.state||null,
-        JSON.stringify(q.contraindications1||[]),
-        JSON.stringify(q.contraindications2||[]),
-        JSON.stringify(q.compoundingPreferences||[]),
-        q.firstName||null, q.lastName||null,
-        q.email||null, q.phone||null,
-        q.smsConsent||false,
-        q.selectedMed||null,
-        q.selectedFormFactor||null,
-        q.selectedDuration||null,
+        q.bmi        ? parseFloat(q.bmi)        : null,
+        q.pace || null,
+        q.priorMeds || null,
+        JSON.stringify(q.priorMedsList || []),
+        q.priorMedsDosage || null,
+        q.priorMedsHowLong || null,
+        q.sex  || null,
+        q.dob  || null,
+        q.age  ? parseInt(q.age) : null,
+        q.state || null,
+        JSON.stringify(q.contraindications1 || []),
+        JSON.stringify(q.contraindications2 || []),
+        JSON.stringify(q.compoundingPreferences || []),
+        q.eligible !== undefined ? q.eligible : null,
+        q.firstName || null,
+        q.lastName  || null,
+        q.email     || null,
+        q.phone     || null,
+        q.smsConsent || false,
+        q.selectedMed          || null,
+        q.selectedFormFactor   || null,
+        q.selectedDuration     || null,
         q.selectedPrice ? parseFloat(q.selectedPrice) : null,
         JSON.stringify(q)
       ]
     );
+
     res.status(200).json({ success: true, id: result.rows[0].id });
   } catch (err) {
     console.error('DB error:', err.message);
