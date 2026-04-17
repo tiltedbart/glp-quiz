@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Order Confirmed — Curex GLP-1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:        #0a9e8f;
+      --yellow:      #FFD71E;
+      --yellow-dark: #F5C500;
+      --pink:        #FA4A93;
+      --surface:     #fff;
+      --bg:          #F8F8F6;
+      --border:      #E5E5E0;
+      --text:        #111;
+      --muted:       #666;
+    }
+
+    body {
+      font-family: "Instrument Sans", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 54px; background: #fff;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav img { height: 36px; }
+
+    /* Page */
+    .page {
+      max-width: 520px; margin: 0 auto;
+      padding: 90px 20px 60px;
+    }
+
+    /* Hero */
+    .hero { text-align: center; margin-bottom: 28px; }
+    .check-circle {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: #DCFCE7;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .check-circle svg { width: 28px; height: 28px; }
+    .confirmed-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #DCFCE7; color: #15803D;
+      border: 1px solid #BBF7D0;
+      border-radius: 100px; font-size: 11px; font-weight: 700;
+      padding: 4px 12px; margin-bottom: 14px;
+    }
+    .hero-title {
+      font-family: "Inter Tight", sans-serif;
+      font-size: 24px; font-weight: 900;
+      color: var(--text); line-height: 1.2; margin-bottom: 10px;
+    }
+    .hero-sub {
+      font-size: 14px; color: var(--muted); line-height: 1.6;
+    }
+
+    /* Med card */
+    .med-card {
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: 18px; overflow: hidden; margin-bottom: 16px;
+    }
+    .med-inner { display: flex; }
+    .med-img {
+      width: 44%; flex-shrink: 0;
+      background: var(--bg); min-height: 200px;
+      overflow: hidden;
+    }
+    .med-img img { width: 100%; height: 100%; object-fit: cover; }
+    .med-benefits { flex: 1; padding: 18px 16px; border-left: 1px solid #F0F0EC; }
+    .med-name {
+      font-family: "Inter Tight", sans-serif;
+      font-size: 14px; font-weight: 800; margin-bottom: 12px;
+    }
+    .benefit-row {
+      display: flex; align-items: flex-start; gap: 7px;
+      margin-bottom: 8px; font-size: 11px; color: #444; line-height: 1.4;
+    }
+    .benefit-row .ico { flex-shrink: 0; font-size: 12px; }
+    .benefit-row .lbl { flex: 1; }
+    .benefit-row .free {
+      font-size: 10px; font-weight: 700; color: #15803D;
+      background: #DCFCE7; border-radius: 100px;
+      padding: 1px 6px; white-space: nowrap;
+    }
+    .savings-row {
+      margin-top: 10px; padding-top: 8px;
+      border-top: 1px solid #F0F0EC;
+      font-size: 12px; font-weight: 800; color: #15803D;
+      display: flex; justify-content: space-between;
+    }
+
+    /* Confirm box */
+    .confirm-box {
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 20px 18px; margin-bottom: 14px;
+    }
+    .confirm-title {
+      font-family: "Inter Tight", sans-serif;
+      font-size: 14px; font-weight: 800; margin-bottom: 12px;
+    }
+    .confirm-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; color: #444; line-height: 1.5; margin-bottom: 10px;
+    }
+    .confirm-row:last-child { margin-bottom: 0; }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--teal); flex-shrink: 0; margin-top: 6px;
+    }
+    .email-hl { font-weight: 700; color: var(--text); }
+
+    /* Contact */
+    .contact-box {
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 16px 18px;
+      font-size: 13px; color: var(--muted); line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .contact-box a { color: var(--teal); font-weight: 600; text-decoration: none; }
+
+    /* CTA */
+    .cta-btn {
+      width: 100%; padding: 16px;
+      border: none; border-radius: 14px;
+      background: linear-gradient(135deg, var(--yellow-dark), var(--pink));
+      color: #fff; font-family: "Instrument Sans", sans-serif;
+      font-size: 15px; font-weight: 800; cursor: pointer;
+      letter-spacing: -0.01em;
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+  ═══════════════════════════════════════════════════════════════
+  SUCCESS PAGE — Curex GLP-1 Quiz Funnel
+  ═══════════════════════════════════════════════════════════════
+
+  HOW THIS PAGE WORKS:
+    This page is served at /success (i.e. /success/index.html).
+    After a successful Stripe checkout, Stripe redirects to:
+      https://glp-quiz.vercel.app/success
+
+    Quiz state (selectedMed, selectedFormFactor, selectedDuration,
+    selectedPrice, email) was saved to localStorage before redirect.
+    This page reads that state on load via renderSuccess().
+
+  STRIPE INTEGRATION (production):
+    In s14BuyNow(), set the Stripe success_url to:
+      https://glp-quiz.vercel.app/success
+    On redirect, this page auto-renders from localStorage.
+
+    Optionally pass quiz data as URL params for robustness:
+      ?med=tir&ff=inj&dur=12mo&email=user@example.com
+    Then read via URLSearchParams as a fallback if localStorage is empty.
+
+  IMAGE PATHS:
+    Images are served from the root (../tirz-i.webp etc.)
+    Adjust paths if your folder structure changes.
+  ═══════════════════════════════════════════════════════════════
+  -->
+
+  <!-- Nav -->
+  <nav class="nav">
+    <img src="../sem-b.webp" alt="Curex" style="height:36px;object-fit:contain;" id="navLogo">
+  </nav>
+
+  <!-- Page content -->
+  <div class="page">
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="check-circle">
+        <svg viewBox="0 0 28 28" fill="none">
+          <path d="M6 14l5.5 5.5L22 8" stroke="#15803D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="confirmed-tag">
+        <svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l2.5 2.5L9 1" stroke="#15803D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Order Confirmed
+      </div>
+      <div class="hero-title">Thank you, we can't wait<br>to help you reach your goal.</div>
+      <div class="hero-sub">We're looking forward to helping you achieve your goal weight. Your care team is already on it.</div>
+    </div>
+
+    <!-- Med + benefits -->
+    <div class="med-card">
+      <div class="med-inner">
+        <div class="med-img">
+          <img id="medImg" src="../tirz-i.webp" alt="Medication">
+        </div>
+        <div class="med-benefits">
+          <div class="med-name" id="medName">Your Medication</div>
+          <div class="benefit-row"><span class="ico">🔒</span><span class="lbl">Price Lock</span><span class="free">FREE</span></div>
+          <div class="benefit-row"><span class="ico">🏆</span><span class="lbl">Weight Loss Guarantee</span><span class="free">FREE</span></div>
+          <div class="benefit-row"><span class="ico">🎫</span><span class="lbl">Membership Fee Waived</span><span class="free">FREE</span></div>
+          <div class="benefit-row"><span class="ico">👨‍⚕️</span><span class="lbl">Unlimited Provider Consults</span><span class="free">FREE</span></div>
+          <div class="benefit-row"><span class="ico">🚚</span><span class="lbl">Free 2-day delivery</span><span class="free">FREE</span></div>
+          <div class="benefit-row"><span class="ico">📞</span><span class="lbl">24/7 medical support</span><span class="free">FREE</span></div>
+          <div class="savings-row"><span>Total saved</span><span id="totalSaved">$744</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmation -->
+    <div class="confirm-box">
+      <div class="confirm-title">📦 What happens next</div>
+      <div class="confirm-row">
+        <div class="dot"></div>
+        <div>Your medication has been reserved and will ship out in <strong>1-2 business days</strong>. A confirmation will be sent to <span class="email-hl" id="emailEl">your email</span>.</div>
+      </div>
+      <div class="confirm-row">
+        <div class="dot"></div>
+        <div>A clinician will reach out to you via SMS to complete your intake and verify your prescription.</div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact-box">
+      If you have any questions feel free to call <a href="tel:8572401080">(857) 240-1080</a> or email <a href="mailto:hi@getcurex.com">hi@getcurex.com</a>
+    </div>
+
+    <!-- CTA -->
+    <button class="cta-btn" onclick="window.location.href='https://getcurex.com'">
+      Return to Curex
+    </button>
+
+  </div>
+
+  <script>
+    function renderSuccess() {
+      // Read quiz state from localStorage
+      const quiz = JSON.parse(localStorage.getItem('curexQuiz') || '{}');
+
+      // Fallback: also check URL params for robustness
+      const params = new URLSearchParams(window.location.search);
+      const med = params.get('med') || quiz.selectedMed || 'tir';
+      const ff  = params.get('ff')  || quiz.selectedFormFactor || 'inj';
+      const dur = params.get('dur') || quiz.selectedDuration || '1mo';
+      const email = params.get('email') || quiz.email || '';
+
+      // Med image
+      const imgMap = {
+        'tir-inj': '../tirz-i.webp', 'tir-tab': '../tirz-t.webp',
+        'sem-inj': '../sem-i.webp',  'sem-tab': '../sem-t.webp'
+      };
+      const imgSrc = imgMap[med + '-' + ff] || '../tirz-i.webp';
+      document.getElementById('medImg').src = imgSrc;
+
+      // Med name
+      const medName = (med === 'tir' ? 'Tirzepatide' : 'Semaglutide') + ' ' + (ff === 'tab' ? 'Tablet' : 'Injection');
+      document.getElementById('medName').textContent = medName;
+
+      // Email
+      if (email) document.getElementById('emailEl').textContent = email;
+
+      // Total saved: $744 benefits + plan savings
+      const planSavings = { '12mo': 1200, '6mo': 300, '3mo': 60, '1mo': 0 };
+      const total = 744 + (planSavings[dur] || 0);
+      document.getElementById('totalSaved').textContent = '$' + total.toLocaleString();
+    }
+
+    renderSuccess();
+  </script>
+
+</body>
+</html>

@@ -1987,130 +1987,6 @@ html, body {
 }
 .s7-med-pill { position: relative; }
 
-
-/* ── Step 15: Success Page ── */
-#quizStep15 { padding: 0; }
-.s15-wrap { display: none; } /* unused - replaced by quiz-card */
-.s15-hero {
-  text-align: center; margin-bottom: 32px;
-}
-.s15-check {
-  width: 64px; height: 64px; border-radius: 50%;
-  background: #DCFCE7; display: flex; align-items: center;
-  justify-content: center; margin: 0 auto 16px;
-}
-.s15-check svg { width: 28px; height: 28px; }
-.s15-tag {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: #DCFCE7; color: #15803D; border: 1px solid #BBF7D0;
-  border-radius: 100px; font-size: 11px; font-weight: 700;
-  padding: 4px 12px; margin-bottom: 14px;
-}
-.s15-title {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 26px; font-weight: 900;
-  color: #111; line-height: 1.2; margin-bottom: 10px;
-}
-.s15-subtitle {
-  font-size: 14px; color: #666; line-height: 1.6; max-width: 400px; margin: 0 auto;
-}
-
-/* Med + benefits card */
-.s15-med-card {
-  background: #fff; border: 1.5px solid #E5E5E0;
-  border-radius: 18px; overflow: hidden;
-  margin-bottom: 16px;
-}
-.s15-med-inner {
-  display: flex; gap: 0;
-}
-.s15-med-img-wrap {
-  width: 46%; flex-shrink: 0;
-  background: #F8F8F6;
-  min-height: 220px;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-}
-.s15-med-img-wrap img {
-  width: 100%; height: 100%; object-fit: cover;
-}
-.s15-med-benefits {
-  flex: 1; padding: 20px 18px;
-  border-left: 1px solid #F0F0EC;
-}
-.s15-med-name {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 15px; font-weight: 800; color: #111; margin-bottom: 14px;
-}
-.s15-benefit-row {
-  display: flex; align-items: flex-start; gap: 8px;
-  margin-bottom: 9px; font-size: 11.5px; color: #444; line-height: 1.4;
-}
-.s15-benefit-row .ico { flex-shrink: 0; font-size: 13px; }
-.s15-benefit-row .lbl { flex: 1; }
-.s15-benefit-row .free {
-  font-size: 10px; font-weight: 700; color: #15803D;
-  background: #DCFCE7; border-radius: 100px;
-  padding: 1px 6px; white-space: nowrap; margin-left: 4px;
-}
-.s15-savings-row {
-  margin-top: 12px; padding-top: 10px;
-  border-top: 1px solid #F0F0EC;
-  font-size: 12px; font-weight: 800; color: #15803D;
-  display: flex; justify-content: space-between;
-}
-
-/* Confirmation box */
-.s15-confirm-box {
-  background: #F8F8F6; border: 1.5px solid #E5E5E0;
-  border-radius: 16px; padding: 22px 20px;
-  margin-bottom: 20px;
-}
-.s15-confirm-title {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 15px; font-weight: 800; color: #111; margin-bottom: 14px;
-  display: flex; align-items: center; gap: 8px;
-}
-.s15-confirm-row {
-  display: flex; align-items: flex-start; gap: 10px;
-  font-size: 13px; color: #444; line-height: 1.5; margin-bottom: 10px;
-}
-.s15-confirm-row .dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #0a9e8f; flex-shrink: 0; margin-top: 6px;
-}
-.s15-email-highlight {
-  font-weight: 700; color: #111;
-}
-
-/* Contact */
-.s15-contact {
-  background: #fff; border: 1.5px solid #E5E5E0;
-  border-radius: 16px; padding: 18px 20px;
-  margin-bottom: 28px; font-size: 13px; color: #555; line-height: 1.7;
-}
-.s15-contact a { color: #0a9e8f; text-decoration: none; font-weight: 600; }
-
-/* CTA */
-.s15-cta {
-  width: 100%; padding: 16px;
-  border: none; border-radius: 14px;
-  background: linear-gradient(135deg, var(--yellow-dark), var(--pink));
-  color: #fff; font-family: 'Instrument Sans', sans-serif;
-  font-size: 15px; font-weight: 800; cursor: pointer;
-  animation: btnPulse 2.2s ease-in-out infinite;
-}
-
-
-
-body.on-step15 .quiz-page {
-  justify-content: flex-start !important;
-  padding-top: 100px !important;
-}
-body.on-step15 #quizStep15 {
-  width: 100%;
-}
-
 </style>
 </head>
 <body>
@@ -3362,117 +3238,6 @@ body.on-step15 #quizStep15 {
   </div><!-- /step14 -->
 
 
-  <!--
-  ═══════════════════════════════════════════════════════════════════════
-  STEP 15 SUCCESS / ORDER CONFIRMATION PAGE
-  ═══════════════════════════════════════════════════════════════════════
-
-  PURPOSE:
-    This page is a post-purchase confirmation screen. It renders after
-    a successful GLP-1 plan purchase and shows the patient a summary
-    of their order, benefits, and next steps.
-
-  CURRENT BEHAVIOUR (prototype):
-    - The Purchase buttons in step 14 (s14BuyNow) check if a real Stripe
-      link is set. If the link is '#' (placeholder), it falls through to
-      goToStep(15) so this page can be previewed during development.
-
-  HOW TO WIRE UP WITH STRIPE (production):
-    1. Create a Stripe Payment Link or Checkout Session per plan.
-    2. Set the Stripe success_url to this quiz URL with a query param:
-         e.g. https://glp-quiz.vercel.app/?success=true
-    3. On page load, detect the param and render this step:
-         const params = new URLSearchParams(window.location.search);
-         if (params.get('success') === 'true') {
-           currentStep = 15;
-           s15Render();
-           document.getElementById('quizStep15').classList.add('active');
-         }
-    4. Quiz state (quiz.selectedMed, quiz.selectedFormFactor, quiz.email)
-       will still be in localStorage if the user hasn't cleared it.
-       Alternatively pass the data via Stripe metadata and retrieve it
-       from your /api/webhook handler, then pass it to the page via
-       URL params or a server-side session.
-
-  DYNAMIC DATA:
-    - s15Render() reads: quiz.selectedMed, quiz.selectedFormFactor,
-      quiz.email all set before the Stripe redirect.
-    - Med image: tirz-i.webp / tirz-t.webp / sem-i.webp / sem-t.webp
-    - #s15MedName: rendered as e.g. "Tirzepatide Injection"
-    - #s15Email: restated from quiz.email
-
-  BACK BUTTON:
-    Hidden on this step intentionally users should not be able to
-    navigate back after a purchase.
-  ═══════════════════════════════════════════════════════════════════════
-  -->
-  <!-- ── STEP 15: SUCCESS ── -->
-  <div class="quiz-step" id="quizStep15">
-    <div class="quiz-card">
-      <div class="quiz-card-body">
-
-      <!-- Hero -->
-      <div class="s15-hero">
-        <div class="s15-check">
-          <svg viewBox="0 0 28 28" fill="none">
-            <path d="M6 14l5.5 5.5L22 8" stroke="#15803D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="s15-tag">
-          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M1 5l2.5 2.5L9 1" stroke="#15803D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Order Confirmed
-        </div>
-        <div class="s15-title">Thank you we can't wait<br>to help you reach your goal.</div>
-        <div class="s15-subtitle">We're looking forward to helping you achieve your goal weight. Your care team is already on it.</div>
-      </div>
-
-      <!-- Med card + benefits -->
-      <div class="s15-med-card">
-        <div class="s15-med-inner">
-          <div class="s15-med-img-wrap">
-            <img id="s15MedImg" src="" alt="Medication">
-          </div>
-          <div class="s15-med-benefits">
-            <div class="s15-med-name" id="s15MedName">Your Medication</div>
-            <div class="s15-benefit-row"><span class="ico">🔒</span><span class="lbl">Price Lock</span><span class="free">FREE</span></div>
-            <div class="s15-benefit-row"><span class="ico">🏆</span><span class="lbl">Weight Loss Guarantee</span><span class="free">FREE</span></div>
-            <div class="s15-benefit-row"><span class="ico">🎫</span><span class="lbl">Membership Fee Waived</span><span class="free">FREE</span></div>
-            <div class="s15-benefit-row"><span class="ico">👨‍⚕️</span><span class="lbl">Unlimited Provider Consults</span><span class="free">FREE</span></div>
-            <div class="s15-benefit-row"><span class="ico">🚚</span><span class="lbl">Free 2-day delivery</span><span class="free">FREE</span></div>
-            <div class="s15-benefit-row"><span class="ico">📞</span><span class="lbl">24/7 medical support</span><span class="free">FREE</span></div>
-            <div class="s15-savings-row"><span>Total saved</span><span id="s15TotalSaved">$744</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Confirmation -->
-      <div class="s15-confirm-box">
-        <div class="s15-confirm-title">
-          📦 What happens next
-        </div>
-        <div class="s15-confirm-row">
-          <div class="dot"></div>
-          <div>Your medication has been reserved and will ship out in <strong>1to2 business days</strong>. A confirmation will be sent to <span class="s15-email-highlight" id="s15Email"></span>.</div>
-        </div>
-        <div class="s15-confirm-row">
-          <div class="dot"></div>
-          <div>A clinician will reach out to you via SMS to complete your intake and verify your prescription.</div>
-        </div>
-      </div>
-
-      <!-- Contact -->
-      <div class="s15-contact">
-        If you have any questions feel free to call <a href="tel:8572401080">(857) 240-1080</a> or email <a href="mailto:hi@getcurex.com">hi@getcurex.com</a>
-      </div>
-
-      <!-- CTA -->
-      <button class="s15-cta" onclick="window.location.href='https://getcurex.com'">
-        Return to Curex →
-      </button>
-
-          </div>
-    </div>
-  </div>
 
 </div><!-- /quiz-page -->
 
@@ -3484,10 +3249,9 @@ function saveQuiz() { localStorage.setItem('curexQuiz', JSON.stringify(quiz)); }
 // ─── NAV / STEP MANAGEMENT ───
 let currentStep = 1;
 const totalSteps = 10;
-const progressMap = { 1: 8, 2: 16, 3: 26, 4: 35, 5: 44, 6: 53, 7: 62, 8: 71, 9: 80, 10: 88, 11: 95, 12: 98, 13: 100, 14: 100, 15: 100 };
+const progressMap = { 1: 8, 2: 16, 3: 26, 4: 35, 5: 44, 6: 53, 7: 62, 8: 71, 9: 80, 10: 88, 11: 95, 12: 98, 13: 100, 14: 100 };
 
 function goToStep(n, dir) {
-  document.body.classList.remove('on-step15');
   const prev = document.getElementById('quizStep' + currentStep);
   const next = document.getElementById('quizStep' + n);
   if (!next) return;
@@ -3506,7 +3270,7 @@ function goToStep(n, dir) {
 
   // Back button
   const back = document.getElementById('quizBackBtn');
-  if (n > 1 && n < 15) { back.classList.add('visible'); } else { back.classList.remove('visible'); }
+  if (n > 1) { back.classList.add('visible'); } else { back.classList.remove('visible'); }
 }
 
 function goBack() {
@@ -4736,11 +4500,8 @@ function s14BuyNow(duration) {
     }).catch(() => {});
   }
   const link = s14StripeLinks[med][duration];
-  if (link && link !== '#') {
-    window.location.href = link;
-  } else {
-    goToStep(15);
-  }
+  const dest = link && link !== '#' ? link : 'https://glp-quiz.vercel.app/success';
+  window.location.href = dest;
 }
 
 function s14GoSlide(n) {
@@ -4759,44 +4520,8 @@ const _s14GoTo = goToStep;
 goToStep = function(n, dir) {
   _s14GoTo(n, dir);
   if (n === 14) setTimeout(s14Render, 50);
-  if (n === 15) setTimeout(s15Render, 50);
 };
 
-
-function s15Render() {
-  document.body.classList.add('on-step15');
-  window.scrollTo({ top: 0, behavior: 'instant' });
-
-  const med = quiz.selectedMed || 'tir';
-  const ff  = quiz.selectedFormFactor || 'inj';
-  const medName = med === 'tir' ? 'Tirzepatide' : 'Semaglutide';
-  const ffName  = ff === 'tab' ? 'Tablet' : 'Injection';
-
-  const imgMap = {
-    'tir-inj': 'tirz-i.webp', 'tir-tab': 'tirz-t.webp',
-    'sem-inj': 'sem-i.webp',  'sem-tab': 'sem-t.webp'
-  };
-  const imgSrc = imgMap[med + '-' + ff] || 'tirz-i.webp';
-
-  const imgEl = document.getElementById('s15MedImg');
-  if (imgEl) imgEl.src = imgSrc;
-
-  const nameEl = document.getElementById('s15MedName');
-  if (nameEl) nameEl.textContent = medName + ' ' + ffName;
-
-  const emailEl = document.getElementById('s15Email');
-  if (emailEl) emailEl.textContent = quiz.email || 'your email';
-
-  // Plan savings: $744 benefits + annual savings vs monthly billing
-  const pricing = { 'tir': { '12mo': 299, '6mo': 349, '3mo': 379, '1mo': 399 },
-                    'sem': { '12mo': 199, '6mo': 249, '3mo': 279, '1mo': 299 } };
-  const planSavingsMap = { '12mo': 1200, '6mo': 300, '3mo': 60, '1mo': 0 };
-  const dur = quiz.selectedDuration || '1mo';
-  const planSavings = planSavingsMap[dur] || 0;
-  const totalSaved = 744 + planSavings;
-  const savedEl = document.getElementById('s15TotalSaved');
-  if (savedEl) savedEl.textContent = '$' + totalSaved.toLocaleString();
-}
 
 </script>
 
