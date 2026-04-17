@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Curex — GLP-1 Quiz</title>
+<title>Curex GLP-1 Quiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,700;0,800;0,900;1,800&family=Instrument+Sans:wght@400;500;600&display=swap">
@@ -1158,7 +1158,7 @@ body::before {
 
 .s13-inner { max-width: 480px; margin: 0 auto; padding: 0 24px; }
 
-/* Hero — same off-white bg as rest of quiz */
+/* Hero same off-white bg as rest of quiz */
 .s13-hero { padding: 28px 24px 12px; }
 .s13-hero-badge {
   display: inline-flex; align-items: center; gap: 7px;
@@ -1936,7 +1936,7 @@ html, body {
 .bmi-low #s2BmiBody { color: #991B1B !important; }
 
 
-/* ── Step 14 pricing cards — white background kept ── */
+/* ── Step 14 pricing cards white background kept ── */
 
 /* ── Shine animation on Purchase button ── */
 @keyframes btnShine {
@@ -1986,6 +1986,130 @@ html, body {
   letter-spacing: 0.05em;
 }
 .s7-med-pill { position: relative; }
+
+
+/* ── Step 15: Success Page ── */
+#quizStep15 { padding: 0; }
+.s15-wrap { display: none; } /* unused - replaced by quiz-card */
+.s15-hero {
+  text-align: center; margin-bottom: 32px;
+}
+.s15-check {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: #DCFCE7; display: flex; align-items: center;
+  justify-content: center; margin: 0 auto 16px;
+}
+.s15-check svg { width: 28px; height: 28px; }
+.s15-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #DCFCE7; color: #15803D; border: 1px solid #BBF7D0;
+  border-radius: 100px; font-size: 11px; font-weight: 700;
+  padding: 4px 12px; margin-bottom: 14px;
+}
+.s15-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 26px; font-weight: 900;
+  color: #111; line-height: 1.2; margin-bottom: 10px;
+}
+.s15-subtitle {
+  font-size: 14px; color: #666; line-height: 1.6; max-width: 400px; margin: 0 auto;
+}
+
+/* Med + benefits card */
+.s15-med-card {
+  background: #fff; border: 1.5px solid #E5E5E0;
+  border-radius: 18px; overflow: hidden;
+  margin-bottom: 16px;
+}
+.s15-med-inner {
+  display: flex; gap: 0;
+}
+.s15-med-img-wrap {
+  width: 46%; flex-shrink: 0;
+  background: #F8F8F6;
+  min-height: 220px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.s15-med-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.s15-med-benefits {
+  flex: 1; padding: 20px 18px;
+  border-left: 1px solid #F0F0EC;
+}
+.s15-med-name {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 15px; font-weight: 800; color: #111; margin-bottom: 14px;
+}
+.s15-benefit-row {
+  display: flex; align-items: flex-start; gap: 8px;
+  margin-bottom: 9px; font-size: 11.5px; color: #444; line-height: 1.4;
+}
+.s15-benefit-row .ico { flex-shrink: 0; font-size: 13px; }
+.s15-benefit-row .lbl { flex: 1; }
+.s15-benefit-row .free {
+  font-size: 10px; font-weight: 700; color: #15803D;
+  background: #DCFCE7; border-radius: 100px;
+  padding: 1px 6px; white-space: nowrap; margin-left: 4px;
+}
+.s15-savings-row {
+  margin-top: 12px; padding-top: 10px;
+  border-top: 1px solid #F0F0EC;
+  font-size: 12px; font-weight: 800; color: #15803D;
+  display: flex; justify-content: space-between;
+}
+
+/* Confirmation box */
+.s15-confirm-box {
+  background: #F8F8F6; border: 1.5px solid #E5E5E0;
+  border-radius: 16px; padding: 22px 20px;
+  margin-bottom: 20px;
+}
+.s15-confirm-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 15px; font-weight: 800; color: #111; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.s15-confirm-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: #444; line-height: 1.5; margin-bottom: 10px;
+}
+.s15-confirm-row .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #0a9e8f; flex-shrink: 0; margin-top: 6px;
+}
+.s15-email-highlight {
+  font-weight: 700; color: #111;
+}
+
+/* Contact */
+.s15-contact {
+  background: #fff; border: 1.5px solid #E5E5E0;
+  border-radius: 16px; padding: 18px 20px;
+  margin-bottom: 28px; font-size: 13px; color: #555; line-height: 1.7;
+}
+.s15-contact a { color: #0a9e8f; text-decoration: none; font-weight: 600; }
+
+/* CTA */
+.s15-cta {
+  width: 100%; padding: 16px;
+  border: none; border-radius: 14px;
+  background: linear-gradient(135deg, var(--yellow-dark), var(--pink));
+  color: #fff; font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px; font-weight: 800; cursor: pointer;
+  animation: btnPulse 2.2s ease-in-out infinite;
+}
+
+
+
+body.on-step15 .quiz-page {
+  justify-content: flex-start !important;
+  padding-top: 100px !important;
+}
+body.on-step15 #quizStep15 {
+  width: 100%;
+}
 
 </style>
 </head>
@@ -2275,7 +2399,7 @@ html, body {
               <div class="s3-google-badge"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg> Google</div>
             </div>
             <div class="s3-stars"><span class="s3-star">★</span><span class="s3-star">★</span><span class="s3-star">★</span><span class="s3-star">★</span><span class="s3-star">★</span></div>
-            <div class="s3-review-text">"The 6-month plan was perfect for me — I lost weight steadily without feeling deprived or rushed. My energy is up, I sleep better, and I'm off my blood pressure meds. Worth every penny."</div>
+            <div class="s3-review-text">"The 6-month plan was perfect for me I lost weight steadily without feeling deprived or rushed. My energy is up, I sleep better, and I'm off my blood pressure meds. Worth every penny."</div>
             <span class="s3-result-badge s3-badge-blue">↓ Lost 41 lbs in 6 months</span>
           </div>
 
@@ -2289,7 +2413,7 @@ html, body {
               <div class="s3-google-badge"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg> Google</div>
             </div>
             <div class="s3-stars"><span class="s3-star">★</span><span class="s3-star">★</span><span class="s3-star">★</span><span class="s3-star">★</span><span class="s3-star">★</span></div>
-            <div class="s3-review-text">"I chose the gentle 12-month plan and it genuinely changed my life. No crash dieting, no side effects — just slow, real progress. I've kept every pound off. My only regret is not starting sooner."</div>
+            <div class="s3-review-text">"I chose the gentle 12-month plan and it genuinely changed my life. No crash dieting, no side effects just slow, real progress. I've kept every pound off. My only regret is not starting sooner."</div>
             <span class="s3-result-badge s3-badge-green">↓ Lost 67 lbs in 12 months</span>
           </div>
 
@@ -2416,7 +2540,7 @@ html, body {
             </div>
           </div>
 
-          <!-- Dosage dropdown — shown when a med is selected -->
+          <!-- Dosage dropdown shown when a med is selected -->
           <div id="s5DosageSection" style="display:none;margin-top:14px;">
             <div class="s5-med-dropdown-label">What dosage are you/were you taking?</div>
             <select id="s5DosageSelect" class="quiz-input" onchange="s5OnDosageChange()" style="margin-top:6px;">
@@ -2437,16 +2561,16 @@ html, body {
             </select>
           </div>
 
-          <!-- How long ago — only shown for "past" choice -->
+          <!-- How long ago only shown for "past" choice -->
           <div id="s5HowLongSection" style="display:none;margin-top:14px;">
             <div class="s5-med-dropdown-label">How long ago did you stop taking it?</div>
             <select id="s5HowLongSelect" class="quiz-input" onchange="s5OnHowLongChange()" style="margin-top:6px;">
               <option value="" disabled selected>Select timeframe...</option>
-              <option value="6-8wks">6–8 weeks ago</option>
-              <option value="2-3mo">2–3 months ago</option>
-              <option value="3-6mo">3–6 months ago</option>
-              <option value="6-12mo">6–12 months ago</option>
-              <option value="1-2yr">1–2 years ago</option>
+              <option value="6-8wks">6to8 weeks ago</option>
+              <option value="2-3mo">2to3 months ago</option>
+              <option value="3-6mo">3to6 months ago</option>
+              <option value="6-12mo">6to12 months ago</option>
+              <option value="1-2yr">1to2 years ago</option>
               <option value="2yr+">More than 2 years ago</option>
             </select>
           </div>
@@ -2539,7 +2663,7 @@ html, body {
           <div class="s7-med-pills" id="s7MedPills"></div>
           <div style="margin-top:12px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#16A34A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span style="font-size:12px;font-weight:700;color:#15803D;letter-spacing:-0.01em;">Your state qualifies for Free Shipping and 1–2 day delivery</span>
+            <span style="font-size:12px;font-weight:700;color:#15803D;letter-spacing:-0.01em;">Your state qualifies for Free Shipping and 1to2 day delivery</span>
           </div>
         </div>
       </div>
@@ -2798,7 +2922,7 @@ html, body {
         </div>
       </div>
 
-      <!-- Ineligible message — shown in place of pre-weight section -->
+      <!-- Ineligible message shown in place of pre-weight section -->
       <div class="s11-ineligible-msg" id="s11IneligibleMsg">
         <div class="s11-ineligible-title">Thank you for your interest in Curex.</div>
         <p>Based on the information provided, it appears that you are not currently eligible for treatment through Curex. This could be due to factors such as your BMI, current health conditions, or specific medical history that may require further evaluation.</p>
@@ -2897,7 +3021,7 @@ html, body {
         <div class="s13-inner" style="padding:0;">
           <div class="s13-hero-badge" style="background:#DCFCE7;color:#15803D;border:1px solid #BBF7D0;"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#15803D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> GLP-1 Plan Ready</div>
           <div class="s13-hero-title"><span class="s13-name-grad" id="s13Name">You're</span> in.<br>Your plan is ready.</div>
-          <div class="s13-hero-sub">Clinician-matched GLP-1 — personalized to your body and goals.</div>
+          <div class="s13-hero-sub">Clinician-matched GLP-1 personalized to your body and goals.</div>
           <div class="s13-compare">
             <div class="s13-compare-head">
               <span>Today</span><span></span><span class="s13-with">With Curex</span>
@@ -3000,7 +3124,7 @@ html, body {
                   <div class="s13-med-v2-name">Tirzepatide</div>
                   <div class="s13-med-stars">★★★★★</div>
                   <div class="s13-med-count">4.7 · 32,250 members</div>
-                  <div class="s13-med-desc">Dual-action GLP-1 + GIP weekly injection — clinically shown to produce greater weight loss than semaglutide alone.</div>
+                  <div class="s13-med-desc">Dual-action GLP-1 + GIP weekly injection clinically shown to produce greater weight loss than semaglutide alone.</div>
                   <div class="s13-med-from-label">Starts From</div>
                   <div class="s13-med-price">$299<span>/mo</span></div>
                   <button class="s13-med-select-btn" onclick="event.stopPropagation();quiz.selectedMed='tir';saveQuiz();goToStep(14);">See Plans →</button>
@@ -3042,7 +3166,7 @@ html, body {
 <div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Can I pay with an FSA or HSA?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Yes! You can pay with your HSA or FSA card.</div></div>
 <div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Can you prescribe Ozempic®, Wegovy®, Zepbound® or Monjaro®?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Our providers focus on personalized medications and dosages that aren't commercially available at your local pharmacy. We don't prescribe Ozempic®, Wegovy®, Zepbound®, or Mounjaro®. We may prescribe treatments containing compounded semaglutide or tirzepatide. These medications are specially compounded for you by a licensed pharmacy to meet your specific needs.</div></div>
 <div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Are video visits with a provider required?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Our providers will review your information 100% online. Depending on where you live and the specifics of your medical history, our providers may require you to have a video visit or asynchronous visit via text message. If prescribed, you'll get unlimited online access to message your provider as needed for follow-ups, adjustments, and answers to your questions.</div></div>
-<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">What states do you serve?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Curex is proud to serve all 50 states. Please note that in California, we are only able to prescribe tablet formulations — injectable GLP-1s are not available in that state at this time.</div></div>
+<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">What states do you serve?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Curex is proud to serve all 50 states. Please note that in California, we are only able to prescribe tablet formulations injectable GLP-1s are not available in that state at this time.</div></div>
         </div>
       </div>
 
@@ -3066,7 +3190,7 @@ html, body {
             Plan Ready
           </div>
           <div class="s14-title">Select your preferred <span class="s14-title-grad" id="s14MedName">GLP-1</span> form factor.</div>
-          <p class="s14-sub">We offer both injections and tablets in your location. Same clinician-prescribed formula — choose the format that fits your lifestyle.</p>
+          <p class="s14-sub">We offer both injections and tablets in your location. Same clinician-prescribed formula choose the format that fits your lifestyle.</p>
 
           <!-- Form factor cards -->
           <div class="s14-ff-grid">
@@ -3142,10 +3266,10 @@ html, body {
       <!-- Pricing -->
       <div class="s14-pricing" id="s14Pricing">
         <div class="s14-pricing-title" id="s14PricingTitle">Choose your plan.</div>
-        <p class="s14-pricing-sub">Longer plans save more — all include free shipping and clinician support.</p>
+        <p class="s14-pricing-sub">Longer plans save more all include free shipping and clinician support.</p>
 
         <div class="s14-pricing-grid">
-          <!-- 12mo — always best/gradient border -->
+          <!-- 12mo always best/gradient border -->
           <div class="s14-plan-row best" id="s14row12">
             <div class="s14-plan-save" id="s14s12"></div>
             <div class="s14-plan-best-badge">🏆 Best Value</div>
@@ -3232,11 +3356,123 @@ html, body {
 <div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Can I pay with an FSA or HSA?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Yes! You can pay with your HSA or FSA card.</div></div>
 <div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Can you prescribe Ozempic®, Wegovy®, Zepbound® or Monjaro®?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Our providers focus on personalized medications and dosages that aren't commercially available at your local pharmacy. We don't prescribe Ozempic®, Wegovy®, Zepbound®, or Mounjaro®. We may prescribe treatments containing compounded semaglutide or tirzepatide. These medications are specially compounded for you by a licensed pharmacy to meet your specific needs.</div></div>
 <div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">Are video visits with a provider required?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Our providers will review your information 100% online. Depending on where you live and the specifics of your medical history, our providers may require you to have a video visit or asynchronous visit via text message. If prescribed, you'll get unlimited online access to message your provider as needed for follow-ups, adjustments, and answers to your questions.</div></div>
-<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">What states do you serve?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Curex is proud to serve all 50 states. Please note that in California, we are only able to prescribe tablet formulations — injectable GLP-1s are not available in that state at this time.</div></div>
+<div class="s13-faq-item"><div class="s13-faq-q" onclick="s13Faq(this)">What states do you serve?<span class="s13-faq-icon">+</span></div><div class="s13-faq-a">Curex is proud to serve all 50 states. Please note that in California, we are only able to prescribe tablet formulations injectable GLP-1s are not available in that state at this time.</div></div>
         </div>
       </div>
-      </div>
   </div><!-- /step14 -->
+
+
+  <!--
+  ═══════════════════════════════════════════════════════════════════════
+  STEP 15 SUCCESS / ORDER CONFIRMATION PAGE
+  ═══════════════════════════════════════════════════════════════════════
+
+  PURPOSE:
+    This page is a post-purchase confirmation screen. It renders after
+    a successful GLP-1 plan purchase and shows the patient a summary
+    of their order, benefits, and next steps.
+
+  CURRENT BEHAVIOUR (prototype):
+    - The Purchase buttons in step 14 (s14BuyNow) check if a real Stripe
+      link is set. If the link is '#' (placeholder), it falls through to
+      goToStep(15) so this page can be previewed during development.
+
+  HOW TO WIRE UP WITH STRIPE (production):
+    1. Create a Stripe Payment Link or Checkout Session per plan.
+    2. Set the Stripe success_url to this quiz URL with a query param:
+         e.g. https://glp-quiz.vercel.app/?success=true
+    3. On page load, detect the param and render this step:
+         const params = new URLSearchParams(window.location.search);
+         if (params.get('success') === 'true') {
+           currentStep = 15;
+           s15Render();
+           document.getElementById('quizStep15').classList.add('active');
+         }
+    4. Quiz state (quiz.selectedMed, quiz.selectedFormFactor, quiz.email)
+       will still be in localStorage if the user hasn't cleared it.
+       Alternatively pass the data via Stripe metadata and retrieve it
+       from your /api/webhook handler, then pass it to the page via
+       URL params or a server-side session.
+
+  DYNAMIC DATA:
+    - s15Render() reads: quiz.selectedMed, quiz.selectedFormFactor,
+      quiz.email all set before the Stripe redirect.
+    - Med image: tirz-i.webp / tirz-t.webp / sem-i.webp / sem-t.webp
+    - #s15MedName: rendered as e.g. "Tirzepatide Injection"
+    - #s15Email: restated from quiz.email
+
+  BACK BUTTON:
+    Hidden on this step intentionally users should not be able to
+    navigate back after a purchase.
+  ═══════════════════════════════════════════════════════════════════════
+  -->
+  <!-- ── STEP 15: SUCCESS ── -->
+  <div class="quiz-step" id="quizStep15">
+    <div class="quiz-card">
+      <div class="quiz-card-body">
+
+      <!-- Hero -->
+      <div class="s15-hero">
+        <div class="s15-check">
+          <svg viewBox="0 0 28 28" fill="none">
+            <path d="M6 14l5.5 5.5L22 8" stroke="#15803D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="s15-tag">
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M1 5l2.5 2.5L9 1" stroke="#15803D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Order Confirmed
+        </div>
+        <div class="s15-title">Thank you we can't wait<br>to help you reach your goal.</div>
+        <div class="s15-subtitle">We're looking forward to helping you achieve your goal weight. Your care team is already on it.</div>
+      </div>
+
+      <!-- Med card + benefits -->
+      <div class="s15-med-card">
+        <div class="s15-med-inner">
+          <div class="s15-med-img-wrap">
+            <img id="s15MedImg" src="" alt="Medication">
+          </div>
+          <div class="s15-med-benefits">
+            <div class="s15-med-name" id="s15MedName">Your Medication</div>
+            <div class="s15-benefit-row"><span class="ico">🔒</span><span class="lbl">Price Lock</span><span class="free">FREE</span></div>
+            <div class="s15-benefit-row"><span class="ico">🏆</span><span class="lbl">Weight Loss Guarantee</span><span class="free">FREE</span></div>
+            <div class="s15-benefit-row"><span class="ico">🎫</span><span class="lbl">Membership Fee Waived</span><span class="free">FREE</span></div>
+            <div class="s15-benefit-row"><span class="ico">👨‍⚕️</span><span class="lbl">Unlimited Provider Consults</span><span class="free">FREE</span></div>
+            <div class="s15-benefit-row"><span class="ico">🚚</span><span class="lbl">Free 2-day delivery</span><span class="free">FREE</span></div>
+            <div class="s15-benefit-row"><span class="ico">📞</span><span class="lbl">24/7 medical support</span><span class="free">FREE</span></div>
+            <div class="s15-savings-row"><span>Total saved</span><span id="s15TotalSaved">$744</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirmation -->
+      <div class="s15-confirm-box">
+        <div class="s15-confirm-title">
+          📦 What happens next
+        </div>
+        <div class="s15-confirm-row">
+          <div class="dot"></div>
+          <div>Your medication has been reserved and will ship out in <strong>1to2 business days</strong>. A confirmation will be sent to <span class="s15-email-highlight" id="s15Email"></span>.</div>
+        </div>
+        <div class="s15-confirm-row">
+          <div class="dot"></div>
+          <div>A clinician will reach out to you via SMS to complete your intake and verify your prescription.</div>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="s15-contact">
+        If you have any questions feel free to call <a href="tel:8572401080">(857) 240-1080</a> or email <a href="mailto:hi@getcurex.com">hi@getcurex.com</a>
+      </div>
+
+      <!-- CTA -->
+      <button class="s15-cta" onclick="window.location.href='https://getcurex.com'">
+        Return to Curex →
+      </button>
+
+          </div>
+    </div>
+  </div>
 
 </div><!-- /quiz-page -->
 
@@ -3248,9 +3484,10 @@ function saveQuiz() { localStorage.setItem('curexQuiz', JSON.stringify(quiz)); }
 // ─── NAV / STEP MANAGEMENT ───
 let currentStep = 1;
 const totalSteps = 10;
-const progressMap = { 1: 8, 2: 16, 3: 26, 4: 35, 5: 44, 6: 53, 7: 62, 8: 71, 9: 80, 10: 88, 11: 95, 12: 98, 13: 100 };
+const progressMap = { 1: 8, 2: 16, 3: 26, 4: 35, 5: 44, 6: 53, 7: 62, 8: 71, 9: 80, 10: 88, 11: 95, 12: 98, 13: 100, 14: 100, 15: 100 };
 
 function goToStep(n, dir) {
+  document.body.classList.remove('on-step15');
   const prev = document.getElementById('quizStep' + currentStep);
   const next = document.getElementById('quizStep' + n);
   if (!next) return;
@@ -3269,7 +3506,7 @@ function goToStep(n, dir) {
 
   // Back button
   const back = document.getElementById('quizBackBtn');
-  if (n > 1) { back.classList.add('visible'); } else { back.classList.remove('visible'); }
+  if (n > 1 && n < 15) { back.classList.add('visible'); } else { back.classList.remove('visible'); }
 }
 
 function goBack() {
@@ -3344,7 +3581,7 @@ function s2BlurIn(el) {
   }
 }
 
-// Weight: 80–700 lbs
+// Weight: 80to700 lbs
 function s2ValidateWeight(el) {
   const v = parseFloat(el.value);
   const err = document.getElementById('s2WeightError');
@@ -3386,7 +3623,7 @@ function s2ValidateTarget(el) {
   } else if (!isNaN(current) && current > 0 && target < current * 0.40) {
     el.classList.add('input-error');
     const minTarget = Math.ceil(current * 0.40);
-    err.textContent = "That's over 60% loss — please enter at least " + minTarget + " lbs.";
+    err.textContent = "That's over 60% loss please enter at least " + minTarget + " lbs.";
   } else {
     el.classList.remove('input-error');
     err.textContent = '';
@@ -3433,7 +3670,7 @@ function s2OnChange() {
       bmiBox.classList.add('bmi-normal');
       document.getElementById('s2BmiIcon').textContent = '✓';
       document.getElementById('s2BmiTitle').textContent = 'Your BMI is ' + bmiStr + ' (healthy range).';
-      document.getElementById('s2BmiBody').textContent = 'GLP-1 therapy can still support your goals — your clinician will review.';
+      document.getElementById('s2BmiBody').textContent = 'GLP-1 therapy can still support your goals your clinician will review.';
     } else if (bmi < 30) {
       bmiBox.classList.add('bmi-over');
       document.getElementById('s2BmiIcon').textContent = '⚡';
@@ -3464,7 +3701,7 @@ function s2OnChange() {
       body  = 'A solid goal with meaningful health benefits.';
     } else if (pct < 30) {
       title = 'Lose ' + lbsToLose + ' lbs, that\'s ' + pct + '% of your body weight.';
-      body  = 'An ambitious goal — starting gradually helps support long-term success.';
+      body  = 'An ambitious goal starting gradually helps support long-term success.';
     } else {
       title = 'Lose ' + lbsToLose + ' lbs, that\'s ' + pct + '% of your body weight.';
       body  = 'A significant goal. GLP-1 therapy is designed for journeys like this.';
@@ -3595,7 +3832,7 @@ function s4Render() {
   if (lbs < 20) {
     sub = 'A very achievable goal. Most Curex members at your target see results within the first few weeks of starting their plan.';
   } else if (months === 3 && lbs > 80) {
-    sub = 'That is a significant goal for 3 months. Your clinician will push your dose as fast as safely possible, but expect the final stretch to run a bit longer — lasting results matter more than speed.';
+    sub = 'That is a significant goal for 3 months. Your clinician will push your dose as fast as safely possible, but expect the final stretch to run a bit longer lasting results matter more than speed.';
   } else if (months === 3 && lbs > 40) {
     sub = 'An ambitious timeline. Your clinician will escalate your dose quickly. Most members at this scale hit their goal right around the 3-month mark or just after.';
   } else if (months === 3 && lbs <= 40) {
@@ -4111,7 +4348,7 @@ function s11Render() {
   let cat = '—', catClass = '';
   if (bmi > 0) {
     if (bmi >= 30)      { cat = 'Eligible';              catClass = 's11-eligible'; }
-    else if (bmi >= 25) { cat = 'Overweight — Eligible'; catClass = 's11-eligible'; }
+    else if (bmi >= 25) { cat = 'Overweight Eligible'; catClass = 's11-eligible'; }
     else if (bmi >= 22) { cat = 'Borderline eligible';   catClass = ''; }
     else                { cat = 'Not Eligible';            catClass = 's11-ineligible-cat'; }
   }
@@ -4126,7 +4363,7 @@ function s11Render() {
     goalEl.textContent = '—';
   }
 
-  // Success probability — higher BMI = stronger GLP-1 candidate
+  // Success probability higher BMI = stronger GLP-1 candidate
   let prob = '91%';
   if (bmi >= 40)       prob = '97%';
   else if (bmi >= 35)  prob = '95%';
@@ -4226,7 +4463,7 @@ async function s12SaveAndContinue() {
   quiz.smsConsent = s12SmsChecked;
   saveQuiz();
 
-  // Fire-and-forget — submit quiz answers to DB
+  // Fire-and-forget submit quiz answers to DB
   try {
     fetch('/api/submit', {
       method: 'POST',
@@ -4311,7 +4548,7 @@ function s13SelectMed(type) {
     '</div>'
   ).join('');
 
-  // Show panel instantly — no slide animation
+  // Show panel instantly no slide animation
   const panel = document.getElementById('s13PricingPanel');
   panel.classList.remove('panel-right','panel-left','animating');
   panel.classList.add('visible');
@@ -4382,7 +4619,7 @@ const s14Pricing = {
   }
 };
 
-// Stripe links — replace '#' with real links when ready
+// Stripe links replace '#' with real links when ready
 const s14StripeLinks = {
   tir: { '12mo': '#', '6mo': '#', '3mo': '#', '1mo': '#' },
   sem: { '12mo': '#', '6mo': '#', '3mo': '#', '1mo': '#' }
@@ -4499,7 +4736,11 @@ function s14BuyNow(duration) {
     }).catch(() => {});
   }
   const link = s14StripeLinks[med][duration];
-  if (link && link !== '#') window.location.href = link;
+  if (link && link !== '#') {
+    window.location.href = link;
+  } else {
+    goToStep(15);
+  }
 }
 
 function s14GoSlide(n) {
@@ -4518,7 +4759,44 @@ const _s14GoTo = goToStep;
 goToStep = function(n, dir) {
   _s14GoTo(n, dir);
   if (n === 14) setTimeout(s14Render, 50);
+  if (n === 15) setTimeout(s15Render, 50);
 };
+
+
+function s15Render() {
+  document.body.classList.add('on-step15');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  const med = quiz.selectedMed || 'tir';
+  const ff  = quiz.selectedFormFactor || 'inj';
+  const medName = med === 'tir' ? 'Tirzepatide' : 'Semaglutide';
+  const ffName  = ff === 'tab' ? 'Tablet' : 'Injection';
+
+  const imgMap = {
+    'tir-inj': 'tirz-i.webp', 'tir-tab': 'tirz-t.webp',
+    'sem-inj': 'sem-i.webp',  'sem-tab': 'sem-t.webp'
+  };
+  const imgSrc = imgMap[med + '-' + ff] || 'tirz-i.webp';
+
+  const imgEl = document.getElementById('s15MedImg');
+  if (imgEl) imgEl.src = imgSrc;
+
+  const nameEl = document.getElementById('s15MedName');
+  if (nameEl) nameEl.textContent = medName + ' ' + ffName;
+
+  const emailEl = document.getElementById('s15Email');
+  if (emailEl) emailEl.textContent = quiz.email || 'your email';
+
+  // Plan savings: $744 benefits + annual savings vs monthly billing
+  const pricing = { 'tir': { '12mo': 299, '6mo': 349, '3mo': 379, '1mo': 399 },
+                    'sem': { '12mo': 199, '6mo': 249, '3mo': 279, '1mo': 299 } };
+  const planSavingsMap = { '12mo': 1200, '6mo': 300, '3mo': 60, '1mo': 0 };
+  const dur = quiz.selectedDuration || '1mo';
+  const planSavings = planSavingsMap[dur] || 0;
+  const totalSaved = 744 + planSavings;
+  const savedEl = document.getElementById('s15TotalSaved');
+  if (savedEl) savedEl.textContent = '$' + totalSaved.toLocaleString();
+}
 
 </script>
 
